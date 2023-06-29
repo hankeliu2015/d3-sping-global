@@ -1,17 +1,17 @@
 import React from 'react'
-import { Link } from 'gatsby'
+// import Link from 'next/link'
 import { Layout } from '../shared/layout'
-import { Header, SectionRefs } from '../shared/header'
+import { Header } from '../shared/header'
 import Hero from './hero'
-import Causes, { Cause, CauseImage, CauseTextContent } from '../shared/causes'
-import Technologies from './technologies'
-import SocialMediaBar from '../shared/social-media-bar'
-import SEO from '../shared/seo'
-import JoinSection from './join-section'
-import BlueSection from '../shared/blue-section'
-import PinkDot from '../shared/pink-dot'
+import { Causes, Cause, CauseImage, CauseTextContent } from '../shared/causes'
+// import Technologies from './technologies'
+// import SocialMediaBar from '../shared/social-media-bar'
+// // import SEO from '../shared/seo'
+// // import JoinSection from './join-section'
+// import BlueSection from '../shared/blue-section'
+// import PinkDot from '../shared/pink-dot'
 import { lhkh } from '../shared/causes'
-import { Helmet } from 'react-helmet'
+// import { Helmet } from 'react-helmet'
 
 
 const Announcement = (): JSX.Element => {
@@ -40,34 +40,26 @@ const Announcement = (): JSX.Element => {
   )
 }
 
-const NewLandingPage = ({ location }: PageProps): JSX.Element => {
-  const internalSectionRefs: SectionRefs = {
-    'Causes': React.useRef<any>(),
-    'Contributors': React.useRef<any>(),
-    'Join': React.useRef<any>(),
-  }
+const NewLandingPage = (): JSX.Element => {
 
   return (
     <Layout
       additionalClassNames="new-landing-page"
-      header={
-        <>
-          <Announcement />
-          <Header location={location} internalSectionRefs={internalSectionRefs} />
-        </>}
+      header={<>
+        <Announcement />
+        <Header />
+      </>}
     >
-      <SEO />
-      <div className='text-red'>
-        HELLO WORLD
-      </div>
+      {/* <SEO /> */}
       <Hero />
-      <BlueSection ref={internalSectionRefs['Contributors']}>
+      {/* <Hero />
+      <BlueSection>
         <h1>Our leaders join your cause directly, working alongside you to meet your online &amp; offline goals.</h1>
       </BlueSection>
       <PinkDot />
-      <Causes ref={internalSectionRefs['Causes']} />
-      <Technologies />
-      <JoinSection ref={internalSectionRefs['Join']} />
+      <Causes />
+      <Technologies /> */}
+      {/* <JoinSection ref={internalSectionRefs['Join']} /> */}
       {/* <SocialMediaBar /> */}
     </Layout>
   )

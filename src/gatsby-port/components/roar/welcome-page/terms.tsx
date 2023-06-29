@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import Link from 'next/link'
 
 type TermsLinkProps = {
   to: string
@@ -7,7 +7,7 @@ type TermsLinkProps = {
 }
 
 const TermsLink = ({ to, children }: TermsLinkProps) => (
-  <Link className="terms__link" rel="noopener noreferrer" to={to}>
+  <Link className="terms__link" rel="noopener noreferrer" href={to}>
     {children}
   </Link>
 )

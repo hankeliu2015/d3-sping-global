@@ -1,4 +1,5 @@
 
+import NewLandingPage from '@/gatsby-port/components/new-landing-page'
 import Image from 'next/image'
 
 
@@ -7,7 +8,6 @@ import Image from 'next/image'
 
 export default function Home() {
   return (
-    <h1 className='p-10'><div className="text-blue">Hello</div></h1>
-    
+    <NewLandingPage />
   )
 }

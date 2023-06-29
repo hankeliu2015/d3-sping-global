@@ -1,20 +1,20 @@
 import React from 'react'
 import { Layout } from '../shared/layout'
 import { Header } from '../shared/header'
-import SEO from '../shared/seo'
+// import SEO from '../shared/seo'
 import { Cause, CauseImage, CausesSection, CauseTextContent } from '../shared/causes'
 import BlueSection from '../shared/blue-section'
 import { CheckmarkList } from './checkmark-list'
-import JoinSection from './join-section'
+// import JoinSection from './join-section'
 
 const LHKHPage = (): JSX.Element => {
   return (
     <Layout additionalClassNames="new-landing-page lhkh" header={<Header />}>
-      <SEO
+      {/* <SEO
         pageTitle="More Human Internet partners with Livable Hawaii Kai Hui"
         description="More Human Internet is partnering with Livable Hawaii Kai Hui to advance their online strategy"
         ogImageSrc="https://morehumaninternet.org/lhkh_og_image_1230.png"
-      />
+      /> */}
       <section className="causes">
         <div className="causes__content" style={{ gridTemplateRows: '1fr 5.5fr 1fr' }}>
           <Cause
@@ -73,7 +73,7 @@ const LHKHPage = (): JSX.Element => {
           </div>
         </>
       </CausesSection>
-      <JoinSection />
+      {/* <JoinSection /> */}
       <section className="centered lhkh-donate">
         <div>
           <h1 className="mhi-heading human-blue">Donate</h1>

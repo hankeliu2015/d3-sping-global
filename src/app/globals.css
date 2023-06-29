@@ -16,14 +16,7 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-}
-
-/* body,
+body,
 html {
   font-size: 16px
 }
@@ -2663,4 +2656,4 @@ section.blue-section {
 
 body {
   overflow-x: hidden
-} */
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import Link from 'next/link'
 import RoarLogo from './roar-logo'
 
 type HeaderProps = {
@@ -11,7 +11,7 @@ type HeaderProps = {
 export default function Header({ headerRef, heroRef, otherLinks }: HeaderProps): JSX.Element {
   return (
     <header className="roar" ref={headerRef as any}>
-      <Link ref={heroRef} className="roar-home home active" to="/roar" aria-label="logo">
+      <Link ref={heroRef} className="roar-home home active" href="/roar" aria-label="logo">
         <RoarLogo />
       </Link>
       {otherLinks && <div className="other-links">{otherLinks}</div>}

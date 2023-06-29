@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import cls from 'classnames'
 import { repeat } from 'lodash'
-import { Link } from 'gatsby'
+import Link from 'next/link'
 
 type CauseProps = { cause: string, imgSrc: string, borderColor: string, heading?: string, description: string, href?: string }
 
@@ -55,7 +55,7 @@ export const CauseTextContent = ({ heading, description, href, ...rest }: CauseT
     <div>
       {heading && (<h2 className="human-blue">{heading}</h2>)}
       <p>{description}</p>
-      {href && (<Link className="link" to={href}>Learn More</Link>)}
+      {href && (<Link className="link" href={href}>Learn More</Link>)}
     </div>
   </div>
 )
@@ -71,29 +71,23 @@ export const Cause = ({ imgSrc, borderColor, heading, description, href }: Cause
   </>
 )
 
-export const CausesSection = forwardRef(
-  ({ children, rightToLeft }: { children: React.ReactNode, rightToLeft?: boolean }, ref): JSX.Element => {
-    const numRows = Array.isArray(children) ? children.length : 1
+export function CausesSection({ children, rightToLeft }: { children: React.ReactNode, rightToLeft?: boolean }) {
+  const numRows = Array.isArray(children) ? children.length : 1
     return (
-      <section className={cls('causes', { rightToLeft })} ref={ref as any}>
+      <section className={cls('causes', { rightToLeft })}>
         <div className="causes__content" style={{ gridTemplateRows: repeat('1fr 5.5fr ', numRows) + ' 1fr' }}>
           {children}
         </div>
       </section>
     )
-  }
-)
+}
 
-
-
-export default forwardRef(
-  ({ causes = homePageCauses }: { causes?: ReadonlyArray<CauseProps> } = {}, ref): JSX.Element => {
-    return (
-      <CausesSection ref={ref}>
-        {causes.map((props) => (
-          <Cause key={props.heading} {...props} />
-        ))}
-      </CausesSection>
-    )
-  }
-)
+export function Causes({ causes = homePageCauses }: { causes?: ReadonlyArray<CauseProps> } = {}) {
+  return (
+    <CausesSection>
+      {causes.map((props) => (
+        <Cause key={props.heading} {...props} />
+      ))}
+    </CausesSection>
+  )
+}

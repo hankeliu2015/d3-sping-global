@@ -10,7 +10,7 @@
 import React from 'react'
 import { forEach, kebabCase, map } from 'lodash'
 // @ts-ignore
-import { Link } from 'gatsby'
+import Link from 'next/link'
 import { UAParser } from 'ua-parser-js'
 import Header from '../header'
 
