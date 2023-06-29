@@ -1,14 +1,14 @@
 import React from 'react'
-import { Layout } from '../../shared/layout'
-import useHeader from './useHeader'
+import { Layout } from '@/components/shared/layout'
+import useHeader from './landing-page/useHeader'
 
-import GetUpdates from '../../shared/get-updates'
-import Hero from './hero'
-import HowItWorks from './how-it-works'
-import LearnMore from './learn-more'
-import SocialMediaBar from '../../shared/social-media-bar'
-import useExplicitHeightOnIPhone from '../../../effects/useExplicitHeightOnIPhone'
-import RoarSEO from '../roar-seo'
+import GetUpdates from '@/components/shared/get-updates'
+import Hero from './landing-page/hero'
+import HowItWorks from './landing-page/how-it-works'
+import LearnMore from './landing-page/learn-more'
+import SocialMediaBar from '@/components/shared/social-media-bar'
+import useExplicitHeightOnIPhone from '@/effects/useExplicitHeightOnIPhone'
+import RoarSEO from './roar-seo'
 
 const RoarPage = ({ location }: PageProps): JSX.Element => {
   const navigator = typeof window === 'undefined' ? undefined : window.navigator

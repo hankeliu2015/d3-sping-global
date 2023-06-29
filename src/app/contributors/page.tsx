@@ -1,12 +1,12 @@
 import React from 'react'
-import { Layout } from '../../gatsby-port/components/shared/layout'
-import { Header } from '../../gatsby-port/components/shared/header'
+import { Layout } from '@/components/shared/layout'
+import { Header } from '@/components/shared/header'
 // import SEO from '../shared/seo'
-import { Cause, CauseImage, CausesSection, CauseTextContent } from '../../gatsby-port/components/shared/causes'
-import BlueSection from '../../gatsby-port/components/shared/blue-section'
-import { CheckmarkList } from '../../gatsby-port/components/contributors-page/checkmark-list'
+import { Cause, CauseImage, CausesSection, CauseTextContent } from '@/components/shared/causes'
+import BlueSection from '@/components/shared/blue-section'
+import { CheckmarkList } from '@/components/contributors-page/checkmark-list'
 // import JoinSection from './join-section'
-import Team from '../../gatsby-port/components/team/index'
+import Team from '@/components/team/index'
 
 const ContributorsPage = (): JSX.Element => {
   return (

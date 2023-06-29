@@ -1,10 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react'
-import { Layout } from '../shared/layout'
-import { Header } from '../shared/header'
-// import SEO from '../shared/seo'
-import { Cause, CauseImage, CausesSection, CauseTextContent } from '../shared/causes'
-import BlueSection from '../shared/blue-section'
-import { CheckmarkList } from './checkmark-list'
+import { Layout } from '@/components/shared/layout'
+import { Header } from '@/components/shared/header'
+// import SEO from '@/shared/seo'
+import { Cause, CauseImage, CausesSection, CauseTextContent } from '@/components/shared/causes'
+import BlueSection from '@/components/shared/blue-section'
+import { CheckmarkList } from '@/components/lhkh-page/checkmark-list'
 // import JoinSection from './join-section'
 
 const LHKHPage = (): JSX.Element => {
