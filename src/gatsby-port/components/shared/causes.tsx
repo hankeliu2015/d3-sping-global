@@ -5,15 +5,6 @@ import Link from 'next/link'
 
 type CauseProps = { cause: string, imgSrc: string, borderColor: string, heading?: string, description: string, href?: string }
 
-export const dsa = {
-  cause: 'dsa',
-  imgSrc: '/causes/dsa_hero.png',
-  borderColor: '#FADE60',
-  heading: 'Dream Sports Africa',
-  description: `More Human Internet helped redesign Dream Sports Africa's website, positioning it as the preeminent organization offering life skills education and leadership development through sports through sports in Africa`,
-  href: 'https://dreamsportsafrica.org',
-}
-
 export const lhkh = {
   cause: 'lhkh',
   imgSrc: '/causes/lhkh_hero.png',
@@ -33,7 +24,6 @@ export const roar = {
 }
 
 export const homePageCauses: ReadonlyArray<any> = [
-  dsa,
   lhkh,
   roar,
 ]

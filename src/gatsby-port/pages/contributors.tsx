@@ -1,2 +1,2 @@
-import ContributorsPage from '../components/contributors-page'
+import ContributorsPage from '../../app/causes/page'
 export default ContributorsPage

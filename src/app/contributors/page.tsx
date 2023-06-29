@@ -1,20 +1,20 @@
 import React from 'react'
-import { Layout } from '../shared/layout'
-import { Header } from '../shared/header'
-import SEO from '../shared/seo'
-import { Cause, CauseImage, CausesSection, CauseTextContent } from '../shared/causes'
-import BlueSection from '../shared/blue-section'
-import { CheckmarkList } from './checkmark-list'
-import JoinSection from './join-section'
-import Team from '../team/index'
+import { Layout } from '../../gatsby-port/components/shared/layout'
+import { Header } from '../../gatsby-port/components/shared/header'
+// import SEO from '../shared/seo'
+import { Cause, CauseImage, CausesSection, CauseTextContent } from '../../gatsby-port/components/shared/causes'
+import BlueSection from '../../gatsby-port/components/shared/blue-section'
+import { CheckmarkList } from '../../gatsby-port/components/contributors-page/checkmark-list'
+// import JoinSection from './join-section'
+import Team from '../../gatsby-port/components/team/index'
 
 const ContributorsPage = (): JSX.Element => {
   return (
     <Layout additionalClassNames="new-landing-page" header={<Header />}>
-      <SEO
+      {/* <SEO
         pageTitle="Contributors"
         description="TODO"
-      />
+      /> */}
       <section className="causes">
         <div className="causes__content" style={{ gridTemplateRows: '1fr 5.5fr 1fr' }}>
           <Cause
@@ -87,7 +87,7 @@ const ContributorsPage = (): JSX.Element => {
         </>
       </CausesSection>
       <Team />
-      <JoinSection />
+      {/* <JoinSection /> */}
     </Layout>
   )
 }

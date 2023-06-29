@@ -4,14 +4,13 @@ import { Layout } from '../shared/layout'
 import { Header } from '../shared/header'
 import Hero from './hero'
 import { Causes, Cause, CauseImage, CauseTextContent } from '../shared/causes'
-// import Technologies from './technologies'
+import Technologies from './technologies'
 // import SocialMediaBar from '../shared/social-media-bar'
 // // import SEO from '../shared/seo'
 // // import JoinSection from './join-section'
-// import BlueSection from '../shared/blue-section'
-// import PinkDot from '../shared/pink-dot'
+import BlueSection from '../shared/blue-section'
+import PinkDot from '../shared/pink-dot'
 import { lhkh } from '../shared/causes'
-// import { Helmet } from 'react-helmet'
 
 
 const Announcement = (): JSX.Element => {
@@ -52,13 +51,12 @@ const NewLandingPage = (): JSX.Element => {
     >
       {/* <SEO /> */}
       <Hero />
-      {/* <Hero />
       <BlueSection>
         <h1>Our leaders join your cause directly, working alongside you to meet your online &amp; offline goals.</h1>
       </BlueSection>
       <PinkDot />
       <Causes />
-      <Technologies /> */}
+      <Technologies />
       {/* <JoinSection ref={internalSectionRefs['Join']} /> */}
       {/* <SocialMediaBar /> */}
     </Layout>

@@ -3,7 +3,7 @@ import BuiltWith from './built-with'
 import { BuyMeACoffeeIcon, EmailIcon, GithubIcon, LinkedInIcon, TwitterIcon } from './social-icons'
 import SocialLinks from './social-links'
 
-const socialLinkData: ReadonlyArray<Link> = [
+const socialLinkData = [
   {
     href: 'https://github.com/morehumaninternet',
     ariaLabel: 'Github',
@@ -39,7 +39,7 @@ const Footer = (): JSX.Element => {
         <div className="footer-links__container">
           <SocialLinks links={socialLinkData} />
         </div>
-        <span className="copyright">© More Human Internet Foundation 2020—2022, All rights reserved</span>
+        <span className="copyright">© More Human Internet Foundation 2020—2023, All rights reserved</span>
       </div>
     </footer>
   )
