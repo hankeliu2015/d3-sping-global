@@ -1,3 +1,4 @@
+'use client';
 import React, { forwardRef, useState } from 'react'
 import SlackIcon from './slack-icon'
 

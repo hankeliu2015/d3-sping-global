@@ -1,3 +1,4 @@
+'use client';
 // // tslint:disable:no-expression-statement no-class no-this
 // import React from 'react'
 // import axios from 'axios'
