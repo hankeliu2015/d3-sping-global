@@ -11,5 +11,6 @@ const BlueSection = forwardRef<{}, { children: React.ReactNode }>(
     )
   }
 )
+BlueSection.displayName = 'BlueSection'
 
 export default BlueSection

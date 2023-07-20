@@ -71,5 +71,6 @@ const GetUpdates = forwardRef(
     )
   }
 )
+GetUpdates.displayName = 'GetUpdates'
 
 export default GetUpdates

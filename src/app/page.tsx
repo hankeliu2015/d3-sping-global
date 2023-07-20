@@ -56,6 +56,7 @@ const NewLandingPage = (): JSX.Element => {
       <Hero />
       <BlueSection>
         <h1>Our leaders join your cause directly, working alongside you to meet your online &amp; offline goals.</h1>
+        <img />
       </BlueSection>
       <PinkDot />
       <Causes />

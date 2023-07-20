@@ -7,13 +7,13 @@
 import * as React from 'react'
 
 export default function useExplicitHeightOnIPhone(...refs: React.MutableRefObject<any>[]): void {
-  for (const ref of refs) {
-    React.useEffect(() => {
-      const isIPhone = navigator.userAgent.search('iPhone') >= 0
-      if (isIPhone) {
-        const element = ref.current!
-        element.style.height = getComputedStyle(element).height // tslint:disable-line:no-expression-statement
-      }
-    }, [ref.current])
-  }
+  // for (const ref of refs) {
+  //   React.useEffect(() => {
+  //     const isIPhone = navigator.userAgent.search('iPhone') >= 0
+  //     if (isIPhone) {
+  //       const element = ref.current!
+  //       element.style.height = getComputedStyle(element).height // tslint:disable-line:no-expression-statement
+  //     }
+  //   }, [ref.current])
+  // }
 }

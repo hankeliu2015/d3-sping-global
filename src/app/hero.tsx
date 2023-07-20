@@ -54,7 +54,7 @@ export default function Example() {
                 href="#"
                 className="rounded-md bg-humanblue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-humanlightblue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Get started
+                Partner with us
               </a>
               <a href="#" className="text-sm font-semibold leading-6 text-humanpink">
                 Learn more <span aria-hidden="true">→</span>
