@@ -4,6 +4,7 @@ import { Layout } from '@/components/shared/layout'
 import { Header } from '@/components/shared/header'
 import Hero from './hero'
 import { Causes, Cause, CauseImage, CauseTextContent } from '@/components/shared/causes'
+import  CauseApply  from '@/components/shared/cause-apply'
 import Technologies from '@/components/new-landing-page/technologies'
 // import SocialMediaBar from '../shared/social-media-bar'
 // // import SEO from '../shared/seo'
@@ -63,6 +64,7 @@ const NewLandingPage = (): JSX.Element => {
       <Technologies />
       {/* <JoinSection ref={internalSectionRefs['Join']} /> */}
       {/* <SocialMediaBar /> */}
+      <CauseApply />
     </Layout>
   )
 }
