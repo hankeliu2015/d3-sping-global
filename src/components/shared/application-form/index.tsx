@@ -1,6 +1,6 @@
 // import React from 'react'
 // import { FormGroup } from '@material-ui/core'
-// import { Email, Person } from '@material-ui/icons'
+// import { Email, Person } from ''
 // import TextFieldWithIcon from './text-field-with-icon'
 // import { thankYouHref } from '../../../utils/href'
 

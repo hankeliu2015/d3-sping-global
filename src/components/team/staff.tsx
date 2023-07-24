@@ -2,7 +2,7 @@ import React from 'react'
 
 type StaffProps = TeamMember
 
-const Staff: React.FC<StaffProps> = ({ name, title, image_file_name, background_color, background_shape }) => {
+export default function Staff({ name, title, image_file_name, background_color, background_shape }: StaffProps) {
   return (
     <div className="staff-card">
       <img className={`staff-card__image ${background_color} ${background_shape}`} src={`/headshots/${image_file_name}`} alt={name} />
@@ -15,5 +15,3 @@ const Staff: React.FC<StaffProps> = ({ name, title, image_file_name, background_
     </div>
   )
 }
-
-export default Staff

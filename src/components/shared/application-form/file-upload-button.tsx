@@ -1,7 +1,7 @@
 // tslint:disable:no-expression-statement no-class no-this
 import React from 'react'
 import { last } from 'lodash'
-import { CloudUpload, Close } from '@material-ui/icons'
+// import { CloudUpload, Close } from '@material-ui/icons'
 
 type FileUploadButtonProps = {
   name: string
@@ -39,7 +39,7 @@ export default class FileUploadButton extends React.Component<FileUploadButtonPr
       <div className="file-upload-button-container">
         <input name={this.props.name} type="file" hidden ref={this.inputReference} onChange={this.fileUploadInputChange} />
         <button type="button" className="mhi-button" onClick={this.onClick}>
-          {this.state.fileName ? <Close className="close" /> : <CloudUpload />}
+          {/* {this.state.fileName ? <Close className="close" /> : <CloudUpload />} */}
           <span style={{ marginLeft: 8 }}>{this.state.fileName || this.props.label}</span>
         </button>
       </div>

@@ -6,8 +6,12 @@ type HeroProps = {
   children: React.ReactNode
 }
 
-export default ({ additionalClassNames, heroRef, children }: HeroProps) => (
-  <div className={`hero ${additionalClassNames || ''}`} ref={heroRef}>
-    {children}
-  </div>
-)
+function Hero({ additionalClassNames, heroRef, children }: HeroProps) {
+  return (
+    <div className={`hero ${additionalClassNames || ''}`} ref={heroRef}>
+      {children}
+    </div>
+  )
+}
+
+export default Hero

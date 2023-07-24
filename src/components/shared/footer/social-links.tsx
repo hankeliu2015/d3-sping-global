@@ -1,14 +1,21 @@
+import Link from 'next/link'
 import React from 'react'
 
-type SocialLinksProps = {
-  links: ReadonlyArray<Link>
+type SocialLinkProps = {
+  href: string
+  ariaLabel: string
+  icon: React.ReactNode
 }
 
-const SocialLink = ({ href, ariaLabel, icon }: Link): JSX.Element => {
+type SocialLinksProps = {
+  links: ReadonlyArray<SocialLinkProps>
+}
+
+const SocialLink = ({ href, ariaLabel, icon }: SocialLinkProps): JSX.Element => {
   return (
-    <a className="footer-link" href={href} title={ariaLabel} aria-label={ariaLabel}>
+    <Link className="footer-link" href={href} title={ariaLabel} aria-label={ariaLabel}>
       {icon}
-    </a>
+    </Link>
   )
 }
 
