@@ -41,6 +41,12 @@ export default function Example() {
                   Join our team
                   <ChevronRightIcon className="-mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                 </a>
+                <span className="h-4 w-px bg-gray-900/10" aria-hidden="true" />
+                <a href="/cause-apply" className="flex items-center gap-x-1">
+                  <span className="absolute inset-0" aria-hidden="true" />
+                  Cause Apply
+                  <ChevronRightIcon className="-mr-2 h-5 w-5 text-gray-400" aria-hidden="true" />
+                </a>
               </div>
             </div>
             <h1 className="mt-10 max-w-lg text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
