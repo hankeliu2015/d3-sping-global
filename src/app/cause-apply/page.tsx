@@ -1,62 +1,34 @@
-/*
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
-*/
 
-/* TODO:
-1. The person representing a cause saw the landing page and clicked that they represent a cause
-2. They click through, asking to apply
-3. They are asked for their 
-    1. contact information
-        1. Get the basics (nice looking form inputs with icons)
-    2. cause information 
-        1. Name
-        2. Place dropdown (Countries with emoji flags + a top option for international 🌍)
-        3. Mission ([eight words or less](https://youtu.be/BPdxppjKCwQ))
-        4. How can digital technology have a huge impact in this problem area [textarea]
-    
-    4. Upon submission, they are thanked for their submission and told they will hear from us
-    
-    1. The MHI Slack channel is notified of the submission (Netlify forms)
-*/
 import {
     EnvelopeIcon,
     PhotoIcon,
     UserCircleIcon,
     BarsArrowUpIcon,
-    UsersIcon
+    UsersIcon,
+    HandRaisedIcon, 
+    FlagIcon, 
+    InformationCircleIcon
   } from "@heroicons/react/20/solid";
   
   export default function CauseApply() {
     return (
       <form className="p-12">
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
+          <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
               <div className="sm:col-span-4">
-                {/* user name with leadig icon  */}
                 <div>
                   <label
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Name
+                    Cause Name
                   </label>
                   <div className="mt-2 flex rounded-md shadow-sm">
                     <div className="relative flex flex-grow items-stretch focus-within:z-10">
                       <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <UsersIcon
+                        <FlagIcon
                           className="h-5 w-5 text-gray-400"
                           aria-hidden="true"
                         />
@@ -73,7 +45,7 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-4">
                 <label
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -94,25 +66,29 @@ import {
                 </div>
               </div>
   
-              <div className="col-span-full">
+              <div className="sm:col-span-4">
                 <label
-                  htmlFor="about"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  htmlFor="mission"
+                  className="inline-block text-sm font-medium leading-6 text-gray-900"
                 >
                   Mission
                 </label>
-                <div className="mt-2">
-                  <textarea
+                <a href="https://www.youtube.com/watch?v=BPdxppjKCwQ" target="blank"className="mt-3 pl-2 text-sm leading-6 text-gray-600 hover:text-violet-600">(8 words or less)</a>
+                <div className="mt-2 relative flex flex-grow items-stretch focus-within:z-10">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <InformationCircleIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </div>
+                  <input
+                    type='text'
                     id="about"
-                    name="about"
-                    rows={1}
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
+                    name="misson"
+                    className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="mission"
                   />
                 </div>
-                <p className="mt-3 text-sm leading-6 text-gray-600">
-                  8 words or less.
-                </p>
               </div>
   
               <div className="col-span-full">
@@ -120,7 +96,7 @@ import {
                   htmlFor="about"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  How can digital technology have a huge impact in this problem area
+                  How can digital technology have a huge impact in this problem area?
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -135,10 +111,10 @@ import {
   
               <div className="col-span-full">
                 <label
-                  htmlFor="cover-photo"
+                  htmlFor="file-upload"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Upload a file(Optional)
+                  Supporting Documents(Optional)
                 </label>
                 <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                   <div className="text-center">
@@ -170,15 +146,15 @@ import {
             </div>
           </div>
   
-          <div className="border-b border-gray-900/10 pb-12">
-          <h2 className="text-base font-semibold leading-7 text-gray-900">Contact Information</h2>
-            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
+          <div>
+            <h2 className="text-base font-semibold leading-7 text-gray-900">Contact Information</h2>
+            <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+              <div className="sm:col-span-4">
                 <label
                   htmlFor="first-name"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  First name
+                  Your Name
                 </label>
                 <div className="mt-2">
                   <input
@@ -191,24 +167,6 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="last-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Last name
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
-  
               <div className="sm:col-span-4">
                 {/* input field with leading icon  */}
                 <div>
@@ -216,7 +174,7 @@ import {
                     htmlFor="email"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    Email
+                    Your Email
                   </label>
                   <div className="relative mt-2 rounded-md shadow-sm">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -236,7 +194,7 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-3">
+              <div className="sm:col-span-4">
                 <label
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -257,12 +215,12 @@ import {
                 </div>
               </div>
   
-              <div className="col-span-full">
+              {/* <div className="col-span-2">
                 <label
                   htmlFor="street-address"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="inline-block text-sm font-medium leading-6 text-gray-900 whitespace-nowrap"
                 >
-                  Street address
+                  Street address (Optional)
                 </label>
                 <div className="mt-2">
                   <input
@@ -273,9 +231,9 @@ import {
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
                 </div>
-              </div>
+              </div> */}
   
-              <div className="sm:col-span-2 sm:col-start-1">
+              <div className="sm:col-span-1 sm:col-start-1">
                 <label
                   htmlFor="city"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -293,10 +251,10 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-1">
                 <label
                   htmlFor="region"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 whitespace-nowrap"
                 >
                   State / Province
                 </label>
@@ -311,10 +269,10 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-2">
+              <div className="sm:col-span-1">
                 <label
                   htmlFor="postal-code"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-900 whitespace-nowrap"
                 >
                   ZIP / Postal code
                 </label>
@@ -335,7 +293,7 @@ import {
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <button
             type="button"
-            className="text-sm font-semibold leading-6 text-gray-900"
+            className="text-sm font-semibold leading-6 text-gray-900 whitespace-nowrap"
           >
             Cancel
           </button>
