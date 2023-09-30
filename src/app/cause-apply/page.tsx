@@ -1,4 +1,4 @@
-
+'use client';
 import {
     EnvelopeIcon,
     PhotoIcon,
@@ -9,8 +9,21 @@ import {
     FlagIcon, 
     InformationCircleIcon
   } from "@heroicons/react/20/solid";
+
+  import getUnicodeFlagIcon from 'country-flag-icons/unicode';
+  import { countries } from 'country-flag-icons';
+  // import { useEffect, useState } from "react";
   
   export default function CauseApply() {
+    // TODO: store country Selected State
+    // const [country, setCountry] = useState("United States")
+    const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
+    const countryWithFlag = countries.map(str => getUnicodeFlagIcon(str) + ' ' + regionNamesInEnglish.of(str))
+    // TODO: add confidtion when country names not match.
+    // Warning: Text content did not match. Server: "🇫🇰 Falkland Islands" Client: "🇫🇰 Falkland Islands (Islas Malvinas)"
+    // console.log("flag + country:", countryWithFlag, )
+    console.log("country unicode:", countries)
+
     return (
       <form className="p-12">
         <div className="space-y-12">
@@ -45,7 +58,7 @@ import {
                 </div>
               </div>
   
-              <div className="sm:col-span-4">
+              <div className="sm:col-span-4 pr-4 ">
                 <label
                   htmlFor="country"
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -57,11 +70,11 @@ import {
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 pl-3 py-1.5 bg-center text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
+                    <option>{getUnicodeFlagIcon("US")} United States </option>
+                    {countryWithFlag.map((str, index) => <option key={str + index}>{str}</option>) }
+
                   </select>
                 </div>
               </div>
@@ -206,11 +219,10 @@ import {
                     id="country"
                     name="country"
                     autoComplete="country-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 pl-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
                   >
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>Mexico</option>
+                    <option>{getUnicodeFlagIcon("US")} United States </option>
+                    {countryWithFlag.map((str, index) => <option key={str + index}>{str}</option>) }
                   </select>
                 </div>
               </div>
