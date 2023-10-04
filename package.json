@@ -19,6 +19,7 @@
     "country-flag-icons": "^1.5.7",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
+    "i18n-iso-countries": "^7.7.0",
     "lodash": "^4.17.21",
     "next": "13.4.7",
     "postcss": "8.4.24",

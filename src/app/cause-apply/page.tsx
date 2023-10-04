@@ -11,18 +11,18 @@ import {
   } from "@heroicons/react/20/solid";
 
   import getUnicodeFlagIcon from 'country-flag-icons/unicode';
-  import { countries } from 'country-flag-icons';
+  import countries from 'i18n-iso-countries'; // more reliable alpha 2 country code
+  // import { countries as CountriesfromFlagIcons } from 'country-flag-icons';
   // import { useEffect, useState } from "react";
   
   export default function CauseApply() {
     // TODO: store country Selected State
     // const [country, setCountry] = useState("United States")
+
+    // TODO: Warning: Text content did not match. Server: "🇫🇰 Falkland Islands" Client: "🇫🇰 Falkland Islands (Islas Malvinas)"
     const regionNamesInEnglish = new Intl.DisplayNames(['en'], { type: 'region' });
-    const countryWithFlag = countries.map(str => getUnicodeFlagIcon(str) + ' ' + regionNamesInEnglish.of(str))
-    // TODO: add confidtion when country names not match.
-    // Warning: Text content did not match. Server: "🇫🇰 Falkland Islands" Client: "🇫🇰 Falkland Islands (Islas Malvinas)"
-    // console.log("flag + country:", countryWithFlag, )
-    console.log("country unicode:", countries)
+    const countryWithFlag = Object.keys(countries.getAlpha2Codes()).map(str => getUnicodeFlagIcon(str) + ' ' + regionNamesInEnglish.of(str));
+    // console.log("flag + country:", countryWithFlag)
 
     return (
       <form className="p-12">
