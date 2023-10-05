@@ -1,4 +1,5 @@
-'use client';
+"use client";
+import { NetlifyForm } from "@/components/shared/netlify-form";
 import {
     EnvelopeIcon,
     PhotoIcon,
@@ -30,7 +31,7 @@ import {
     } 
 
     return (
-      <form className="p-12">
+      <NetlifyForm className="p-12" name="apply-cause" action="/thank-you-thank-you-very-much">
         <div className="space-y-12">
           <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
@@ -320,7 +321,7 @@ import {
             Save
           </button>
         </div>
-      </form>
+      </NetlifyForm>
     );
   }
   
