@@ -6,6 +6,8 @@ interface NetlifyFormProps extends React.FormHTMLAttributes<HTMLFormElement> {
 }
 
 export function NetlifyForm({ name, children, ...props }: NetlifyFormProps): JSX.Element {
+  const withNetlify = { ...props, netlify: true }
+  
   return (
     <form
       name={name}
@@ -13,7 +15,7 @@ export function NetlifyForm({ name, children, ...props }: NetlifyFormProps): JSX
       data-netlify="true"
       netlify-honeypot="bot-field"
       autoComplete="off"
-      {...props}
+      {...withNetlify}
     >
       <input type="hidden" name="form-name" value={name} />
       {children}
