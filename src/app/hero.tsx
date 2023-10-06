@@ -1,8 +1,9 @@
+import SpinningGlobe from '@/components/new-landing-page/spinning-globe'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 
 
 
-export default function Example() {
+export default function Hero() {
   return (
     <div className="bg-white">
       <div className="relative isolate pt-14">
@@ -62,7 +63,7 @@ export default function Example() {
             </div>
           </div>
           <div className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
-            {/* <AppScreenshot /> */}
+            {/* <SpinningGlobe /> */}
           </div>
         </div>
       </div>
