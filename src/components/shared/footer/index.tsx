@@ -5,16 +5,6 @@ import SocialLinks from './social-links'
 
 const socialLinkData = [
   {
-    href: 'https://github.com/morehumaninternet',
-    ariaLabel: 'Github',
-    icon: <GithubIcon />,
-  },
-  {
-    href: 'https://twitter.com/morehumaninter1',
-    ariaLabel: 'Twitter',
-    icon: <TwitterIcon />,
-  },
-  {
     href: 'https://www.linkedin.com/company/more-human-internet/',
     ariaLabel: 'LinkedIn',
     icon: <LinkedInIcon />,

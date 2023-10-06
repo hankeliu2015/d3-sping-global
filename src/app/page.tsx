@@ -11,6 +11,7 @@ import Technologies from '@/components/new-landing-page/technologies'
 import BlueSection from '@/components/shared/blue-section'
 import PinkDot from '@/components/shared/pink-dot'
 import { lhkh } from '@/components/shared/causes'
+import OurLeaders from '@/components/new-landing-page/our-leaders'
 
 
 const Announcement = (): JSX.Element => {
@@ -42,8 +43,8 @@ const Announcement = (): JSX.Element => {
   )
 }
 
-const NewLandingPage = (): JSX.Element => {
 
+const NewLandingPage = (): JSX.Element => {
   return (
     <Layout
       additionalClassNames="new-landing-page"
@@ -54,10 +55,7 @@ const NewLandingPage = (): JSX.Element => {
     >
       {/* <SEO /> */}
       <Hero />
-      <BlueSection>
-        <h1>Our leaders join your cause directly, working alongside you to meet your online &amp; offline goals.</h1>
-        <img />
-      </BlueSection>
+      <OurLeaders />
       <PinkDot />
       <Causes />
       <Technologies />

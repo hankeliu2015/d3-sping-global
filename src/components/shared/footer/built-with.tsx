@@ -5,7 +5,7 @@ import { MHIHomeLink } from '../mhi-dots-logo'
 const BuiltWith = (): JSX.Element => {
   return (
     <div className="built-with">
-      <h4>
+      <h4 className="flex flex-row">
         Built with
         <svg width="33" height="17" viewBox="0 0 20 19" fill="none">
           <path
