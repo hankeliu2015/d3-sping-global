@@ -9,13 +9,14 @@ function spinGlobe() {
   const width  = 620;
   const height = 620;
   const rScale = d3.scale.sqrt();
+  console.log('rScale', rScale)
   const peoplePerPixel = 40000;
   let max_population = [];
 
   // Configuration for the spinning effect
   const time = Date.now();
   const rotate = [0, 0];
-  const velocity = [.0015, -0];
+  const velocity = [.0075, -0];
 
   // set projection type and paremetes
   const projection = d3.geo.orthographic()

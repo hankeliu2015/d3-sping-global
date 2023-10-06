@@ -12,11 +12,13 @@ import { lhkh } from '@/components/shared/causes'
 import OurLeaders from '@/components/new-landing-page/our-leaders'
 
 import SpinningGlobe from '@/components/new-landing-page/spinning-globe'
+import VideoInside from '@/components/new-landing-page/video-inside'
 
 
 const NewLandingPage = (): JSX.Element => {
   return (
-    <SpinningGlobe />
+    // <SpinningGlobe />
+    <VideoInside />
   )
 }
 
