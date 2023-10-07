@@ -3,16 +3,16 @@ import { NetlifyForm } from "@/components/shared/netlify-form";
 import {
   EnvelopeIcon,
   PhotoIcon,
-  FlagIcon, 
+  FlagIcon,
   InformationCircleIcon
 } from "@heroicons/react/20/solid";
 
 export default function CauseApply() {
   return (
-    <NetlifyForm className="p-12" name="apply-cause" action="/thank-you-thank-you-very-much">
+    <NetlifyForm className="p-12" name="apply-cause" action="/thank-you">
       <div className="space-y-12">
         <div>
-        <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
+          <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-4">
               <div>
@@ -57,21 +57,21 @@ export default function CauseApply() {
               >
                 Mission*
                 <a href="https://www.youtube.com/watch?v=BPdxppjKCwQ" target="blank" className="mt-3 pl-2 text-sm leading-6 text-blue-600 hover:text-violet-600">(8 words or less)</a>
-                  <div className="mt-2 relative flex flex-grow items-stretch focus-within:z-10">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <InformationCircleIcon
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
-                      />
-                    </div>
-                    <input
-                      name="mission"
-                      className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="mission"
+                <div className="mt-2 relative flex flex-grow items-stretch focus-within:z-10">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <InformationCircleIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
                     />
                   </div>
+                  <input
+                    name="mission"
+                    className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="mission"
+                  />
+                </div>
               </label>
-              
+
             </div>
 
             <div className="col-span-full">
@@ -89,7 +89,7 @@ export default function CauseApply() {
                   />
                 </div>
               </label>
-              
+
             </div>
 
             <div className="col-span-full">
@@ -145,7 +145,7 @@ export default function CauseApply() {
                   />
                 </div>
               </label>
-              
+
             </div>
 
             <div className="sm:col-span-4">

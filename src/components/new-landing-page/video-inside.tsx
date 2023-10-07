@@ -12,15 +12,14 @@ export default function VideoInside() {
       <g>
           <g transform="translate(151,104) scale(1,1)">
               <foreignObject x="-151" y="-104" width="500" height="400" style={{}}>
-                    <video 
-                      id="my-vid"
-                      width="200"
-                      height="200"
-                      style={{ objectFit: 'cover', borderRadius: 100 }} 
-                      src="square-sample.mp4"
-                      muted
-                    />
-
+                <video 
+                  id="my-vid"
+                  width="200"
+                  height="200"
+                  style={{ objectFit: 'cover', borderRadius: 100 }} 
+                  src="square-sample.mp4"
+                  muted
+                />
               </foreignObject>
           </g>
       </g>

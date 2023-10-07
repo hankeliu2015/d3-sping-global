@@ -1,17 +1,17 @@
 "use client"
 import Script from "next/script"
+import data from "./geo.json"
 import { useEffect } from "react"
 
 function spinGlobe() {
   const { d3 } = (window as any)
 
   // Map configuration
-  const width  = 620;
+  const width = 620;
   const height = 620;
   const rScale = d3.scale.sqrt();
-  console.log('rScale', rScale)
+
   const peoplePerPixel = 40000;
-  let max_population = [];
 
   // Configuration for the spinning effect
   const time = Date.now();
@@ -33,48 +33,40 @@ function spinGlobe() {
 
   // drawing dark grey spehere as landmass
   g.append("path")
-    .datum({type: "Sphere"})
+    .datum({ type: "Sphere" })
     .attr("class", "sphere")
     .attr("d", path)
     .attr("fill", "#0D0D0D");
 
-  // loading city locations from geoJSON
-  d3.json("https://gist.githubusercontent.com/PatrickStotz/1f19b3e4cb848100ffd7/raw/dd96e6344c0ea00872018e5e74ad6d96f30ff500/geonames_cities_100k.geojson", function(error, data) {
 
-    // Handle errors getting and parsing the data
-    if (error) { throw error; }
+  // setting the circle size (not radius!) according to the number of inhabitants per city
+  const population_array = [];
+  for (let i = 0; i < data.features.length; i++) {
+    population_array.push(data.features[i].properties.population);
+  }
+  const max_population = population_array.sort(d3.descending)[0]
+  const rMin = 0;
+  const rMax = Math.sqrt(max_population / (peoplePerPixel * Math.PI));
+  rScale.domain([0, max_population]);
+  rScale.range([rMin, rMax]);
 
-    console.log('data', data)
-
-    // setting the circle size (not radius!) according to the number of inhabitants per city
-    const population_array = [];
-    for (let i = 0; i < data.features.length; i++) {
-        population_array.push(data.features[i].properties.population);
-    }
-    max_population = population_array.sort(d3.descending)[0]
-    const rMin = 0;
-    const rMax = Math.sqrt(max_population / (peoplePerPixel * Math.PI));
-    rScale.domain([0, max_population]);
-    rScale.range([rMin, rMax]);
-
-    path.pointRadius(function(d: any) {
-      return d.properties ? rScale(d.properties.population) : 1;
-    });
-
-    // Drawing transparent circle markers for cities
-    g.selectAll("path.cities").data(data.features)
-      .enter().append("path")
-      .attr("class", "cities")
-      .attr("d", path)
-      .attr("fill", "#64c1ff")
-      .attr("fill-opacity", 0.3);
-
-    // start spinning!
-    spinning_globe();
+  path.pointRadius(function (d: any) {
+    return d.properties ? rScale(d.properties.population) : 1;
   });
 
+  // Drawing transparent circle markers for cities
+  g.selectAll("path.cities").data(data.features)
+    .enter().append("path")
+    .attr("class", "cities")
+    .attr("d", path)
+    .attr("fill", "#64c1ff")
+    .attr("fill-opacity", 0.3);
+
+  // start spinning!
+  spinning_globe();
+
   function spinning_globe() {
-    d3.timer(function() {
+    d3.timer(function () {
 
       // get current time
       const dt = Date.now() - time;
@@ -85,7 +77,6 @@ function spinGlobe() {
       // update cities position = redraw
       svg.selectAll("path.cities").attr("d", path);
     });
-
   }
 
   // hackish approach to get bl.ocks.org to display individual height
@@ -105,10 +96,7 @@ export default function SpinningGlobe() {
   return (
     <>
       <Script async id="d3-script" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" />
-      {/* <div id='globe-container'> */}
-        <svg id="globe" />
-      {/* </div> */}
-      
+      <svg id="globe" />
     </>
   )
 }
