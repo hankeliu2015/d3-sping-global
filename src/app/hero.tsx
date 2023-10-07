@@ -63,7 +63,7 @@ export default function Hero() {
             </div>
           </div>
           <div className="mt-16 sm:mt-24 lg:mt-0 lg:flex-shrink-0 lg:flex-grow">
-            {/* <SpinningGlobe /> */}
+            <SpinningGlobe />
           </div>
         </div>
       </div>

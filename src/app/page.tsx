@@ -1,46 +1,16 @@
 import React from 'react'
-// import Link from 'next/link'
 import { Layout } from '@/components/shared/layout'
 import { Header } from '@/components/shared/header'
 import Hero from './hero'
-import { Causes, Cause, CauseImage, CauseTextContent } from '@/components/shared/causes'
+import { Causes } from '@/components/shared/causes'
 import Technologies from '@/components/new-landing-page/technologies'
 // import SocialMediaBar from '../shared/social-media-bar'
 // // import SEO from '../shared/seo'
 // // import JoinSection from './join-section'
 import PinkDot from '@/components/shared/pink-dot'
-import { lhkh } from '@/components/shared/causes'
 import OurLeaders from '@/components/new-landing-page/our-leaders'
+import { Announcement } from '@/components/shared/announcement'
 
-
-const Announcement = (): JSX.Element => {
-  return (
-    <section className="causes announcement" style={{
-      background: 'linear-gradient(135deg, #164176 0%, #164176 50%, #fa759e 100%)',
-    }}>
-      <div className="causes__content" style={{
-        gridTemplateColumns: '1fr 25px 2fr',
-        gridTemplateRows: '5.5fr',
-      }}>
-        <>
-          <CauseImage
-            src={lhkh.imgSrc}
-            borderColor={lhkh.borderColor}
-          />
-          <CauseTextContent
-            description={`More Human Internet is excited to be partnering with Obodo to advance their online strategy, bringing more volunteers to help their mission of stewarding the irreplaceable cultural and natural resources of East Honolulu.`}
-            href={lhkh.href}
-            style={{
-              gridRow: '1',
-              textAlign: 'left',
-              color: 'white',
-            }}
-          />
-        </>
-      </div>
-    </section>
-  )
-}
 
 
 const NewLandingPage = (): JSX.Element => {
@@ -52,6 +22,8 @@ const NewLandingPage = (): JSX.Element => {
         <Header />
       </>}
     >
+
+
       {/* <SEO /> */}
       <Hero />
       <OurLeaders />

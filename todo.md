@@ -1,0 +1,3 @@
+- Get globe to render on main page
+- play gif inside an svg
+- show pink line going between cities

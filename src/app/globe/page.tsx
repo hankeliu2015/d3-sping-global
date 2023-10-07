@@ -3,7 +3,10 @@ import SpinningGlobe from '@/components/new-landing-page/spinning-globe'
 
 
 const GlobePage = (): JSX.Element => (
-  <SpinningGlobe />
+  <div>
+    <SpinningGlobe />
+  </div>
+
 )
 
 export default GlobePage

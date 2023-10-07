@@ -28,7 +28,7 @@ function spinGlobe() {
   // create path variable, empty svg element and group container
   const path = d3.geo.path()
     .projection(projection);
-  const svg = d3.select("svg");
+  const svg = d3.select("svg#globe");
   const g = svg.append("g");
 
   // drawing dark grey spehere as landmass

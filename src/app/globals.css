@@ -2663,10 +2663,6 @@ body {
 }
 
 #globe {
-  position: absolute;
-  left: 50%;
-  top: 50%;
   width: 820px;
   height: 620px;
-  transform: translate(-50%, -50%);
 }
