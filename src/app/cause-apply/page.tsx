@@ -14,7 +14,7 @@ export default function CauseApply() {
         <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-6">
               <div>
                 <label
                   className="block text-sm font-medium leading-6 text-gray-900"
@@ -40,7 +40,7 @@ export default function CauseApply() {
               </div>
             </div>
 
-            <div className="sm:col-span-4 pr-4 ">
+            <div className="sm:col-span-6">
               <label
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
@@ -51,9 +51,27 @@ export default function CauseApply() {
               </label>
             </div>
 
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-3">
+              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
+                Select Padding Test
+              </label>
+              <div className="mt-2">
+                <select
+                  id="country"
+                  name="country"
+                  autoComplete="country-name"
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                >
+                  <option>United States</option>
+                  <option>Canada</option>
+                  <option>Mexico</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="sm:col-span-6">
               <label
-                className="inline-block text-sm font-medium leading-6 text-gray-900"
+                className="inline-block w-full text-sm font-medium leading-6 text-gray-900"
               >
                 Mission*
                 <a href="https://www.youtube.com/watch?v=BPdxppjKCwQ" target="blank" className="mt-3 pl-2 text-sm leading-6 text-blue-600 hover:text-violet-600">(8 words or less)</a>
@@ -130,17 +148,24 @@ export default function CauseApply() {
         <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">Contact Information</h2>
           <div className="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-6">
               <label
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Your Name*
-                <div className="mt-2">
+                <div className="relative mt-2">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <FlagIcon
+                      className="h-5 w-5 text-gray-400"
+                      aria-hidden="true"
+                    />
+                  </div>
                   <input
                     type="text"
                     name="first-name"
                     autoComplete="name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 pl-10 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="Your name"
                     required
                   />
                 </div>
@@ -148,7 +173,7 @@ export default function CauseApply() {
 
             </div>
 
-            <div className="sm:col-span-4">
+            <div className="sm:col-span-6">
               <div>
                 <label
                   className="block text-sm font-medium leading-6 text-gray-900"
