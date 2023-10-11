@@ -2663,6 +2663,7 @@ body {
 }
 
 #globe {
-  width: 820px;
+  width: 620px;
   height: 620px;
+  transform: rotate(-15deg);
 }

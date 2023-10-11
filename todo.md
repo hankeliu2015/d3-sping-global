@@ -1,3 +1,5 @@
-- Get globe to render on main page
-- play gif inside an svg
-- show pink line going between cities
+- [x] Get globe to render on main page
+- [ ] Play with properties of globe to see how it works
+- [ ] Make globe blue with pink dots
+- [ ] play video inside an svg
+- [ ] show pink line going between cities
