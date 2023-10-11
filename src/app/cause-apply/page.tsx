@@ -1,8 +1,9 @@
+'use client';
 import CountrySelect from "@/components/shared/country-select";
 import { NetlifyForm } from "@/components/shared/netlify-form";
 import {
   EnvelopeIcon,
-  PhotoIcon,
+  DocumentIcon,
   FlagIcon,
   InformationCircleIcon
 } from "@heroicons/react/20/solid";
@@ -15,29 +16,27 @@ export default function CauseApply() {
           <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
           <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
             <div className="sm:col-span-6">
-              <div>
-                <label
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Cause Name*
-                  <div className="mt-2 flex rounded-md shadow-sm">
-                    <div className="relative flex flex-grow items-stretch focus-within:z-10">
-                      <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                        <FlagIcon
-                          className="h-5 w-5 text-gray-400"
-                          aria-hidden="true"
-                        />
-                      </div>
-                      <input
-                        name="cause-name"
-                        className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Name of your cause"
-                        required
+              <label
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Cause Name*
+                <div className="mt-2 flex rounded-md shadow-sm">
+                  <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                      <FlagIcon
+                        className="h-5 w-5 text-gray-400"
+                        aria-hidden="true"
                       />
                     </div>
+                    <input
+                      name="cause-name"
+                      className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      placeholder="Name of your cause"
+                      required
+                    />
                   </div>
-                </label>
-              </div>
+                </div>
+              </label>
             </div>
 
             <div className="sm:col-span-6">
@@ -45,30 +44,13 @@ export default function CauseApply() {
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Country*
-                <div className="mt-2">
-                  <CountrySelect />
+                <div className="mt-2 flex rounded-md shadow-sm">
+                  <div className="relative flex flex-grow items-stretch focus-within:z-10">
+                    <CountrySelect />
+                  </div>
                 </div>
               </label>
             </div>
-
-            <div className="sm:col-span-3">
-              <label htmlFor="country" className="block text-sm font-medium leading-6 text-gray-900">
-                Select Padding Test
-              </label>
-              <div className="mt-2">
-                <select
-                  id="country"
-                  name="country"
-                  autoComplete="country-name"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                >
-                  <option>United States</option>
-                  <option>Canada</option>
-                  <option>Mexico</option>
-                </select>
-              </div>
-            </div>
-
             <div className="sm:col-span-6">
               <label
                 className="inline-block w-full text-sm font-medium leading-6 text-gray-900"
@@ -114,27 +96,27 @@ export default function CauseApply() {
               <label
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Supporting Documents
+                Proposal
               </label>
+              <i>Supporting information detailing your cause</i>
               <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
                 <div className="text-center">
-                  <PhotoIcon
+                  <DocumentIcon
                     className="mx-auto h-12 w-12 text-gray-300"
                     aria-hidden="true"
                   />
                   <div className="mt-4 flex text-sm leading-6 text-gray-600">
                     <label
-                      htmlFor="file-upload"
                       className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                     >
-                      <span>Upload a file</span>
+                      {/* <button onClick={}>Upload a file</button> */}
                       <input
-                        name="file-upload"
+                        name="file"
                         type="file"
-                        className="sr-only"
+                        multiple
+                        // className="sr-only"
                       />
                     </label>
-                    <p className="pl-1">or drag and drop</p>
                   </div>
                   <p className="text-xs leading-5 text-gray-600">
                     PNG, JPG, GIF up to 10MB
