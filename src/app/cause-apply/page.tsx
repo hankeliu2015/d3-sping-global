@@ -3,10 +3,12 @@ import CountrySelect from "@/components/shared/country-select";
 import { NetlifyForm } from "@/components/shared/netlify-form";
 import {
   EnvelopeIcon,
-  DocumentIcon,
   FlagIcon,
   InformationCircleIcon
 } from "@heroicons/react/20/solid";
+import {
+  DocumentTextIcon,
+} from "@heroicons/react/24/solid";
 
 export default function CauseApply() {
   return (
@@ -99,26 +101,22 @@ export default function CauseApply() {
                 Proposal
               </label>
               <i>Supporting information detailing your cause</i>
-              <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                <div className="text-center">
-                  <DocumentIcon
+              <div className="mt-2 rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                <div className="flex-col justify-center">
+                  <DocumentTextIcon
                     className="mx-auto h-12 w-12 text-gray-300"
                     aria-hidden="true"
                   />
-                  <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                    <label
-                      className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
-                    >
-                      {/* <button onClick={}>Upload a file</button> */}
+                  <div className="mt-4 flex items-center text-sm leading-6 text-gray-600">
+                    <div className="uploadFileInput relative">
                       <input
                         name="file"
                         type="file"
                         multiple
-                        // className="sr-only"
                       />
-                    </label>
+                    </div>
                   </div>
-                  <p className="text-xs leading-5 text-gray-600">
+                  <p className="text-center text-xs leading-5 text-gray-600">
                     PNG, JPG, GIF up to 10MB
                   </p>
                 </div>
