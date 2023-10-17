@@ -10,22 +10,21 @@ import {
 import {
   DocumentTextIcon,
 } from "@heroicons/react/24/solid";
-import { useCallback, useState } from "react";
 
-const acceptedFileTypes = ["PDF", "DOC", "DOCX", "TXT"]
+const acceptedFileTypes = ["pdf", "doc", "docx", "txt"]
 
 export default function CauseApply() {
 
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
 
   const files = acceptedFiles.map(file => (
-    <li key={file.name}>
+    <div key={file.name}>
       {file.name}
-    </li>
+    </div>
   ));
 
   return (
-    <NetlifyForm className="p-12" name="apply-cause" action="/thank-you">
+    <NetlifyForm className="p-12" name="cause-apply" action="/thank-you">
       <div className="space-y-12">
         <div>
           <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
@@ -114,26 +113,20 @@ export default function CauseApply() {
                 Proposal
               </label>
               <i>Supporting information detailing your cause</i>
-              <div className="mt-2 rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div className="mt-2 rounded-lg border border-dashed border-gray-900/25 px-6 py-10" {...getRootProps({ refKey: 'innerRef' })}>
                 <div className="flex-col justify-center">
                   <DocumentTextIcon
                     className="mx-auto h-12 w-12 text-gray-300"
                     aria-hidden="true"
                   />
-                  <div className="mt-4 items-center text-sm leading-6 text-gray-600 grid" style={{ gridTemplateColumns: '1fr max-content 1fr' }}>
-                    {/* <FileUploader
-                      multiple
-                      name="files"
-                      types={acceptedFileTypes}
-                    /> */}
-                    <div {...getRootProps({ refKey: 'innerRef' })}>
-                      <input {...getInputProps()} multiple />
-                      <p>Drag n drop some files here, or click to select files</p>
-                    </div>
-                    {files}
+                  <div className="mt-4 items-center text-sm leading-6 text-gray-600 grid">
+                    <input name="files" {...getInputProps()} accept={acceptedFileTypes.join(',')} />
                   </div>
                   <p className="text-center text-xs leading-5 text-gray-600">
-                    {acceptedFileTypes.map(type => `.${type.toLowerCase()}`).join(', ')}
+                    {files.length ? files : <>
+                      <div>Drag file here, or click to select</div>
+                      {acceptedFileTypes.map(type => `.${type.toLowerCase()}`).join(', ')}
+                    </>}
                   </p>
                 </div>
               </div>
