@@ -1983,13 +1983,13 @@ input[type=checkbox]:checked+svg {
 }
 
 /* cause_apply page  */
-.uploadFileInput {
+/* .uploadFileInput {
   left: 50%;
   transform: translateX(-35%);
-}
+} */
 
 .uploadFileInput input::file-selector-button {
-  color:rgb(37 99 235);
+  color: rgb(37 99 235);
 }
 
 @media(min-width:710px)and (max-width:800px) {

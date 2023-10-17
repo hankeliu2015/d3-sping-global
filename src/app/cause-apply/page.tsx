@@ -1,6 +1,7 @@
 'use client';
 import CountrySelect from "@/components/shared/country-select";
 import { NetlifyForm } from "@/components/shared/netlify-form";
+import {useDropzone} from 'react-dropzone'
 import {
   EnvelopeIcon,
   FlagIcon,
@@ -9,8 +10,20 @@ import {
 import {
   DocumentTextIcon,
 } from "@heroicons/react/24/solid";
+import { useCallback, useState } from "react";
+
+const acceptedFileTypes = ["PDF", "DOC", "DOCX", "TXT"]
 
 export default function CauseApply() {
+
+  const {acceptedFiles, getRootProps, getInputProps} = useDropzone()
+
+  const files = acceptedFiles.map(file => (
+    <li key={file.name}>
+      {file.name}
+    </li>
+  ));
+
   return (
     <NetlifyForm className="p-12" name="apply-cause" action="/thank-you">
       <div className="space-y-12">
@@ -107,17 +120,20 @@ export default function CauseApply() {
                     className="mx-auto h-12 w-12 text-gray-300"
                     aria-hidden="true"
                   />
-                  <div className="mt-4 flex items-center text-sm leading-6 text-gray-600">
-                    <div className="uploadFileInput relative">
-                      <input
-                        name="file"
-                        type="file"
-                        multiple
-                      />
+                  <div className="mt-4 items-center text-sm leading-6 text-gray-600 grid" style={{ gridTemplateColumns: '1fr max-content 1fr' }}>
+                    {/* <FileUploader
+                      multiple
+                      name="files"
+                      types={acceptedFileTypes}
+                    /> */}
+                    <div {...getRootProps({ refKey: 'innerRef' })}>
+                      <input {...getInputProps()} multiple />
+                      <p>Drag n drop some files here, or click to select files</p>
                     </div>
+                    {files}
                   </div>
                   <p className="text-center text-xs leading-5 text-gray-600">
-                    PNG, JPG, GIF up to 10MB
+                    {acceptedFileTypes.map(type => `.${type.toLowerCase()}`).join(', ')}
                   </p>
                 </div>
               </div>
