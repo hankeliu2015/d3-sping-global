@@ -1,4 +1,5 @@
 import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid'
+import Link from "next/link";
 
 export default function Example() {
   return (
@@ -77,12 +78,12 @@ We’re looking for well-established organizations with demonstrated impact and 
                   </span>
                 </li>
               </ul>
-              <a
-                href="/cause/apply"
+              <Link 
+                href={{pathname: "/cause-apply"}}
                 className="rounded-md bg-humanblue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-humanlightblue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Apply
-              </a>
+              </Link>
             </div>
           </div>
         </div>
