@@ -27,8 +27,8 @@ export default function CauseApply() {
 
   return (
     <Layout header={<Header />}>
-      <section className="flex flex-col items-center">
-        <NetlifyForm className="px-12" name="cause-apply" action="/thank-you">
+      <section>
+        <NetlifyForm className="m-auto max-w-[925px] px-12" name="cause-apply" action="/thank-you">
           <div className="space-y-12">
             <div>
               <h2 className="text-base font-semibold leading-7 text-gray-900">Cause Information</h2>
