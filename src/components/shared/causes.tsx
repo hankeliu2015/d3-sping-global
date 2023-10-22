@@ -2,6 +2,7 @@ import React, { forwardRef } from 'react'
 import cls from 'classnames'
 import { repeat } from 'lodash'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type CauseProps = { cause: string, imgSrc: string, borderColor: string, heading?: string, description: string, href?: string }
 
