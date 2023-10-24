@@ -32,6 +32,8 @@ export const homePageCauses: ReadonlyArray<any> = [
 export const CauseImage = ({ src, borderColor }: { src: string, borderColor: string }) => (
   <div className="cause__image">
     <img src={src} style={{ borderColor }} />
+    {/* TODO: repalce img with Next/image, add props ( width, height, src and alt) for all container components  */}
+    {/* <Image src={src} style={{ borderColor }} width={651} height={651} alt="not alt yet"></Image> */}
   </div>
 )
 
