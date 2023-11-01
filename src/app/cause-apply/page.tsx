@@ -116,7 +116,7 @@ const CauseApply = () => {
                 <i>Supporting information detailing your cause</i>
                 <div
                   className="mt-2 rounded-lg border border-dashed border-gray-900/25 px-6 py-10"
-                  {...getRootProps({ refKey: "innerRef" })}
+                  {...getRootProps()}
                 >
                   <div className="flex-col justify-center">
                     <DocumentTextIcon
