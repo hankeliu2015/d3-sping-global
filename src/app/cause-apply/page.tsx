@@ -8,10 +8,6 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/20/solid";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
-import { Header } from '@/components/shared/header';
-import { Layout } from '@/components/shared/layout';
-import { NextPage } from 'next'
-import { ComponentType, ReactElement, ReactNode } from 'react'
 
 const acceptedFileTypes = ["pdf", "doc", "docx", "txt"];
 
@@ -220,9 +216,5 @@ const CauseApply = () => {
     </section>
   );
 }
-
-CauseApply.getLayout = (page: React.ReactElement) => (
-  <Layout header={<Header />}>{page}</Layout>
-)
 
 export default  CauseApply;
