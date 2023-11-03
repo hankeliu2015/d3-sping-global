@@ -1213,13 +1213,14 @@ h2.mhi-heading {
 
 .hero.index,
 .hero.thank-you {
-  background-image: linear-gradient(to bottom right, #164176, #4a81bc, #fa759e) !important
+  background-image: linear-gradient(to bottom right, #164176, #4a81bc, #fa759e) !important;
+  align-items: center;
+  display: flex;
+  justify-content: center
 }
 
 @media(min-width:601px) {
-
-  .hero.index,
-  .hero.thank-you {
+  .hero.index{
     align-items: center;
     display: flex;
     justify-content: center

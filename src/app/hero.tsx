@@ -1,8 +1,6 @@
 import SpinningGlobe from '@/components/new-landing-page/spinning-globe'
 import { ChevronRightIcon } from '@heroicons/react/20/solid'
 
-
-
 export default function Hero() {
   return (
     <div className="bg-white">

@@ -1,12 +1,13 @@
 import React from "react";
-// import { Card, CardContent } from '@material-ui/core'
+import Link from "next/link";
 import Hero from "@/components/shared/hero";
+// import { Card, CardContent } from '@material-ui/core'
 import { CheckCircleIcon } from '@heroicons/react/20/solid'
 
 export default function ThankYouPage(): JSX.Element {
   return (
     <Hero additionalClassNames="thank-you">
-    <div className="rounded-md bg-green-50 p-4">
+    <div className="rounded-md bg-white p-4">
       
       <div className="flex">
         <div className="flex-shrink-0">
@@ -16,28 +17,25 @@ export default function ThankYouPage(): JSX.Element {
           />
         </div>
         <div className="ml-3">
-          <h3 className="text-sm font-medium text-green-800">
-            Casue apply completed
+          <h3 className="text-sm font-medium text-humanblue">
+            Cause apply completed
           </h3>
-          <div className="mt-2 text-sm text-green-700">
+          <div className="mt-2 text-sm text-humanblue">
             <p>
-            More Human Internet is excited to be partnering with Obodo to advance their online strategy, bringing more volunteers to help their mission of stewarding the irreplaceable cultural and natural resources of East Honolulu.
+            More Human Internet is excited to be partnering with you to advance your online strategy, bringing more volunteers to help your mission of stewarding the irreplaceable cultural and natural resources.
             </p>
           </div>
           <div className="mt-4">
-            <div className="-mx-2 -my-1.5 flex">
-              <button
-                type="button"
-                className="rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
-              >
-                Learn more
-              </button>
-              <button
-                type="button"
-                className="ml-3 rounded-md bg-green-50 px-2 py-1.5 text-sm font-medium text-green-800 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-green-600 focus:ring-offset-2 focus:ring-offset-green-50"
+            <div className="-mx-2 -my-1.5 flex items-center gap-x-6">
+              <Link
+                href={{ pathname: "/" }}
+                className="rounded-md bg-humanblue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-humanlightblue focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Dismiss
-              </button>
+              </Link>
+              <Link href={{ pathname: "/causes" }} className="text-sm font-semibold leading-6 text-humanpink">
+                Learn more <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </div>
