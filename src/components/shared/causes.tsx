@@ -4,7 +4,7 @@ import { repeat } from 'lodash'
 import Link from 'next/link'
 import Image from 'next/image'
 
-type CauseProps = { cause: string, imgSrc: string, borderColor: string, heading?: string, description: string, href?: string }
+type CauseProps = { cause: string, imgSrc: string, borderColor: string, heading?: string, description: string, href?: string, imageAlt?: string }
 
 export const lhkh = {
   cause: 'lhkh',
@@ -13,6 +13,7 @@ export const lhkh = {
   heading: 'Livable Hawaii Kai Hui',
   description: `We are excited to be advancing an online strategy to bring 1500 volunteers of all ages to steward the irreplaceable cultural and natural resources of East Honolulu`,
   href: '/partnering-with-livable-hawaii-kai-hui',
+  imageAlt: 'lhkh project image'
 }
 
 export const roar = {
@@ -22,6 +23,7 @@ export const roar = {
   heading: 'Roar!',
   description: `Our free, open source browser extension enables users of the web report technical issues to website maintainers.`,
   href: '/roar',
+  imageAlt: 'roar project image'
 }
 
 export const homePageCauses: ReadonlyArray<any> = [
@@ -29,11 +31,11 @@ export const homePageCauses: ReadonlyArray<any> = [
   roar,
 ]
 
-export const CauseImage = ({ src, borderColor }: { src: string, borderColor: string }) => (
+export const CauseImage = ({ src, borderColor, imageAlt }: { src: string, borderColor: string, imageAlt?: string }) => (
   <div className="cause__image">
-    <img src={src} style={{ borderColor }} />
-    {/* TODO: repalce img with Next/image, add props ( width, height, src and alt) for all container components  */}
-    {/* <Image src={src} style={{ borderColor }} width={651} height={651} alt="not alt yet"></Image> */}
+    {/* TODO: repalce img with Next/image. keep width and height props as static value(651px) for now  */}
+    {/* next-image requires alt property. add default string for imgeAlt */}
+    <Image src={src} style={{ borderColor }} width={651} height={651} alt={imageAlt ? imageAlt : "empty image description"} priority></Image>
   </div>
 )
 
@@ -53,9 +55,9 @@ export const CauseTextContent = ({ heading, description, href, ...rest }: CauseT
   </div>
 )
 
-export const Cause = ({ imgSrc, borderColor, heading, description, href }: CauseProps) => (
+export const Cause = ({ imgSrc, borderColor, heading, description, href, imageAlt }: CauseProps) => (
   <>
-    <CauseImage src={imgSrc} borderColor={borderColor} />
+    <CauseImage src={imgSrc} borderColor={borderColor} imageAlt={imageAlt} />
     <CauseTextContent
       heading={heading}
       description={description}

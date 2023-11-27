@@ -37,7 +37,7 @@ const ContributorsPage = (): JSX.Element => {
       </BlueSection>
       <CausesSection rightToLeft>
         <>
-          <CauseImage src="/causes/lhkh_reeds.png" borderColor="#FA759E" />
+          <CauseImage src="/causes/lhkh_reeds.png" imageAlt='lhkh reeds image' borderColor="#FA759E" />
           <div className="cause__content">
             <div>
               <h2 className="human-blue">How It Works</h2>
@@ -53,7 +53,7 @@ const ContributorsPage = (): JSX.Element => {
           </div>
         </>
         <>
-          <CauseImage src="/causes/lhkh_hale_background.png" borderColor="#6FCF97" />
+          <CauseImage src="/causes/lhkh_hale_background.png" imageAlt="lhkh hale image" borderColor="#6FCF97" />
           <div className="cause__content">
             <div>
               <h2 className="human-blue">Our Story</h2>
@@ -76,7 +76,7 @@ const ContributorsPage = (): JSX.Element => {
           </div>
         </>
         <>
-          <CauseImage src="/causes/lhkh_plant.png" borderColor="#164176" />
+          <CauseImage src="/causes/lhkh_plant.png" imageAlt="lhkh plant image" borderColor="#164176" />
           <div className="cause__content">
             <div>
               <h2 className="human-blue">Working Together</h2>

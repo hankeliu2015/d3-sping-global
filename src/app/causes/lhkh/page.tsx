@@ -38,7 +38,7 @@ const LHKHPage = (): JSX.Element => {
       </BlueSection>
       <CausesSection rightToLeft>
         <>
-          <CauseImage src="/causes/lhkh_reeds.png" borderColor="#FA759E" />
+          <CauseImage src="/causes/lhkh_reeds.png" imageAlt='lhkh reeds image' borderColor="#FA759E" />
           <CauseTextContent
             heading="Protecting Hawaii’s Land"
             description={
@@ -47,7 +47,7 @@ const LHKHPage = (): JSX.Element => {
           />
         </>
         <>
-          <CauseImage src="/causes/lhkh_ka_iwi_circle.png" borderColor="#6FCF97" />
+          <CauseImage src="/causes/lhkh_ka_iwi_circle.png" imageAlt='lhkh ka iwi image' borderColor="#6FCF97" />
           <div className="cause__content">
             <div>
               <h2 className="human-blue">Advancing Online Strategy</h2>
@@ -64,7 +64,7 @@ const LHKHPage = (): JSX.Element => {
           </div>
         </>
         <>
-          <CauseImage src="/causes/lhkh_plant.png" borderColor="#164176" />
+          <CauseImage src="/causes/lhkh_plant.png" imageAlt="lhkh plant image" borderColor="#164176" />
           <div className="cause__content">
             <div>
               <h2 className="human-blue">Working Together</h2>
