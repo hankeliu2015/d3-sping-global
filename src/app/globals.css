@@ -1220,7 +1220,7 @@ h2.mhi-heading {
 }
 
 @media(min-width:601px) {
-  .hero.index{
+  .hero.index {
     align-items: center;
     display: flex;
     justify-content: center
@@ -2667,4 +2667,16 @@ body {
   width: 620px;
   height: 620px;
   transform: rotate(-15deg);
+}
+
+.city-line {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 6s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
