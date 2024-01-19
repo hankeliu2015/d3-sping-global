@@ -2,6 +2,7 @@
 import Script from "next/script"
 import data from "./geo.json"
 import { useEffect } from "react"
+import * as d3 from "d3"
 // Function to generate random pairs of cities
 function getRandomCityPairs(count: number) {
   const pairs = [];
@@ -17,12 +18,10 @@ function getRandomCityPairs(count: number) {
 }
 
 function spinGlobe() {
-  const { d3 } = (window as any)
-
   // Map configuration
   const width = 620
   const height = 620
-  const rScale = d3.scale.sqrt()
+  const rScale = d3.scaleSqrt()
 
   const peoplePerPixel = 40000
 
@@ -32,24 +31,26 @@ function spinGlobe() {
   const velocity = [.0075, -0]
 
   // set projection type and paremetes
-  const projection = d3.geo.orthographic()
+  const projection = d3.geoOrthographic()
     .scale(300)
     .translate([(width / 2), height / 2])
     .clipAngle(90)
     .precision(0.3)
 
   // create path variable, empty svg element and group container
-  const pathConnection = d3.geo.path().projection(projection)
-  const path = d3.geo.path().projection(projection)
-  const pathAnim = d3.geo.path().projection(projection)
-  const svg = d3.select("svg#globe")
-  const g = svg.append("g")
+  const pathConnection = d3.geoPath(projection)
+  const path = d3.geoPath(projection)
+  const pathAnim = d3.geoPath(projection)
+  const svg: any = d3.select("svg#globe")
+  // TODO: reason not able to type svg and g, types/d3 might have an older version need to update. 
+  // const svg: d3.Selection<SVGElement, any, any, any> = d3.select("svg#globe")
+  const g: any = svg.append("g")
 
   // drawing dark grey sphere as landmass
   g.append("path")
     .datum({ type: "Sphere" })
     .attr("class", "sphere")
-    .attr("d", path)
+    .attr("d", d3.geoPath(projection))
     .attr("fill", "#164176")
 
   // setting the circle size (not radius!) according to the number of inhabitants per city
@@ -74,7 +75,7 @@ function spinGlobe() {
     }
 
     // Get the click coordinates relative to the SVG
-    const [clickX, clickY] = d3.mouse(svg.node());
+    const [clickX, clickY] = d3.pointer(svg.node());
     // Define the position where you want to place the video inside the SVG
     const videoX = clickX - 50; // Adjust the X-coordinate as needed
     const videoY = clickY - 50; // Adjust the Y-coordinate as needed
@@ -97,7 +98,7 @@ function spinGlobe() {
     video.src = "../../square-sample.mp4"; // Adjust the path as needed
 
     // Append the video to the foreignObject
-    foreignObject.node().appendChild(video);
+    foreignObject.node()!.appendChild(video);
 
     // Play the video and set it as the current video
     video.play()
@@ -133,7 +134,7 @@ function spinGlobe() {
     video.src = "../../square-sample.mp4"; // Adjust the path as needed
 
     // Append the video to the foreignObject
-    foreignObject.node().appendChild(video);
+    foreignObject.node()!.appendChild(video);
 
     // // Play the video and set it as the current video
     // video.play()
@@ -156,7 +157,7 @@ function spinGlobe() {
     .attr("fill-opacity", 0.3)
     .on("click", (city: any, event: any) => handleCityClick(city, event)); // Attach click event handler
     
-  const pairs = getRandomCityPairs(2); // Generate 5 random city pairs
+  const pairs = getRandomCityPairs(1); // Generate 1 random city pairs
   g.selectAll("path.cityAnim")
   .data(pairs.map((pair)=>pair[1]))
   .enter().append("path")
@@ -269,7 +270,7 @@ function spinGlobe() {
             // filter the video that should be hide
             const videosShouldHide =  videoList.filter((e: any)=> !videoShouldVisible.some((visible: any)=>visible.id == e.id))
             videos.map((video: any, i: number)=>{
-              const [x, y] = projection(videoShouldVisible[i].coordinates);
+              const [x, y] = projection(videoShouldVisible[i].coordinates)!;
               video.foreignObject.attr("x", x-50).attr("y", y-50);
             })
             videosShouldHide.map((video: any, i: number)=>{
@@ -292,7 +293,6 @@ function spinGlobe() {
 export default function SpinningGlobe() {
   useEffect(() => {
     const d3Script = document.getElementById('d3-script')!
-
     d3Script.addEventListener('load', () => {
       spinGlobe()
     })
