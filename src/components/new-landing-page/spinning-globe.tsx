@@ -41,10 +41,12 @@ function spinGlobe() {
   const pathConnection = d3.geoPath(projection)
   const path = d3.geoPath(projection)
   const pathAnim = d3.geoPath(projection)
+
+  // TODO: still got warnings type svg and g types.
   const svg: any = d3.select("svg#globe")
-  // TODO: reason not able to type svg and g, types/d3 might have an older version need to update. 
   // const svg: d3.Selection<SVGElement, any, any, any> = d3.select("svg#globe")
   const g: any = svg.append("g")
+  // const g: d3.Selection<SVGGElement, any, any, any> = svg.append("g")
 
   // drawing dark grey sphere as landmass
   g.append("path")
