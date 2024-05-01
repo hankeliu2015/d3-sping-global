@@ -52,7 +52,7 @@ function spinGlobe() {
   g.append("path")
     .datum({ type: "Sphere" })
     .attr("class", "sphere")
-    .attr("d", d3.geoPath(projection))
+    .attr("d", path)
     .attr("fill", "#164176")
 
   // setting the circle size (not radius!) according to the number of inhabitants per city
@@ -63,6 +63,7 @@ function spinGlobe() {
   rScale.domain([0, max_population])
   rScale.range([rMin, rMax])
 
+  // city radius size base on scaled population
   path.pointRadius(function (d: any) {
     return d.properties ? rScale(d.properties.population) : 1
   })
@@ -150,16 +151,20 @@ function spinGlobe() {
     return {foreignObject, video, id}
   }
   
+  // set cities svg path's d attribute
   // Inside your click event handler, call handleCityClick and pass the event object
   g.selectAll("path.cities").data(data.features)
     .enter().append("path")
     .attr("class", "cities")
-    .attr("d", path)
+    // d3.geoPath() take in geoOrthographic projection, return another function to generate d attribute
+    .attr("d", (feature: any)=> path(feature))    
     .attr("fill", "#fa759e")
     .attr("fill-opacity", 0.3)
     .on("click", (city: any, event: any) => handleCityClick(city, event)); // Attach click event handler
-    
-  const pairs = getRandomCityPairs(1); // Generate 1 random city pairs
+  
+  // Generate a random city-pairs
+  const pairs = getRandomCityPairs(2);
+  // generate circle for the city pair[1] and set the city redius/circle to 0 before animation(white circle). 
   g.selectAll("path.cityAnim")
   .data(pairs.map((pair)=>pair[1]))
   .enter().append("path")
@@ -169,22 +174,8 @@ function spinGlobe() {
   .attr("stroke", "white")
   .attr("fill-opacity", 0.3)
  
-  // start spinning!
-  spinning_globe()
   let videoList: any = [];
-  
-  const pathStyle = {
-    strokeDasharray: 1000,
-    strokeDashoffset: 1000,
-    animation: "dash 5s linear alternate infinite",
-  };
-  const keyframesStyle = {
-    animationName: "dash",
-    animationDuration: "5s",
-    animationTimingFunction: "linear",
-    animationIterationCount: "infinite",
-    animationDirection: "alternate",
-  };
+  let startVideo = true;
   
   // Draw lines connecting city pairs
   pairs.forEach(function (pair) {
@@ -204,8 +195,11 @@ function spinGlobe() {
       videoList.push(appendVideo(id));
   });
   
-  let startVideo = true;
-  function spinning_globe() {
+  // start spinning!
+  animationOn()
+
+  // define the animation actions of spinning globe, city circle and connecting-cities line
+  function animationOn() {
     let animationStatus = 'running';
     let startTime: number | null = Date.now();
 
@@ -225,11 +219,21 @@ function spinGlobe() {
       projection.rotate([rotate[0] + velocity[0] * dt, rotate[1] + velocity[1] * dt]);
 
       const diff = elapsed / duration;
+      // radius(white circle) become animiated(expanding) when time elapsed
       const radius = Math.max(Math.min((diff * 100) - 100, 50), 0);
-      svg.selectAll("path.cities").attr("d", path); //default circle 
-      svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius)); //default circle 
-
-      svg.selectAll(".city-line") // city connection
+      //set all cities svg path d 
+      svg.selectAll("path.cities").attr("d", path); 
+      
+      // animate white circle radius around destination city, animated from 0 to redius-value. 
+      if( radius < 50) {
+        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius)); 
+      } else {
+        // remove the animated circle and city connection-line at the end of animation cycle
+        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
+        svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
+      }
+      
+      svg.selectAll(".city-line") // city-connection line
         .attr("d", function (d: any) {
           // Interpolate between the starting and ending coordinates
           const startCoordinates = d.coordinates[0];
@@ -241,15 +245,15 @@ function spinGlobe() {
                 each.video.play()
                 .then(() => {
                   console.log("Video is playing");
+                  // TODO: have video disapplear after animation
                 })
                 .catch((error: any) => {
                   console.error("Video playback error:", error);
                 });
               })
+
               startVideo = false;
             }
-            
-
            
            const cityAnimCircle = svg.selectAll("path.cityAnim")
            let videoShouldVisible: any = []; // Remove video if opposite of the globe 
@@ -280,7 +284,7 @@ function spinGlobe() {
             })
            
           }
-         return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
+          return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
         })
      requestAnimationFrame(animate);
     }
