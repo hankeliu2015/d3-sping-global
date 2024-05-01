@@ -113,6 +113,12 @@ function spinGlobe() {
         console.error("Video playback error:", error);
       });
   }
+  // TODO: test removing current started video after city-connection animation 
+  function removeCurrentVideo(id: any) {
+    const currentForeignObj = document.getElementById(id);
+    currentForeignObj!.remove()
+  }
+
   function appendVideo(id: any) {
     // Remove the current video (if any)
     if (currentVideo) {
@@ -191,8 +197,8 @@ function spinGlobe() {
       .style("stroke", "white")
       .style("fill", "none")
       .style("stroke-width", 0.5)
-          
-      videoList.push(appendVideo(id));
+      // TODO: test stoping the video play.     
+      // videoList.push(appendVideo(id));
   });
   
   // start spinning!
@@ -231,6 +237,12 @@ function spinGlobe() {
         // remove the animated circle and city connection-line at the end of animation cycle
         svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
         svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
+        
+        // console.log("video list:", videoList)
+        // TODO: test to stop the playing
+        // if(videoList[0]) {
+        //   removeCurrentVideo(videoList[0].id)
+        // }
       }
       
       svg.selectAll(".city-line") // city-connection line
@@ -245,7 +257,6 @@ function spinGlobe() {
                 each.video.play()
                 .then(() => {
                   console.log("Video is playing");
-                  // TODO: have video disapplear after animation
                 })
                 .catch((error: any) => {
                   console.error("Video playback error:", error);
