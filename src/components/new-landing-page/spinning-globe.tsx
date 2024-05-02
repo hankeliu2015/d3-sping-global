@@ -4,14 +4,27 @@ import data from "./geo.json"
 import { useEffect } from "react"
 import * as d3 from "d3"
 // Function to generate random pairs of cities
+
+// TODO; add the 3rd city. 
+
 function getRandomCityPairs(count: number) {
   const pairs = [];
+  
+  // assign index object to each city properties
+  data.features.forEach((feature, i) => {
+    Object.assign(feature.properties, { i })
+  })
+
   for (let i = 0; i < count; i++) {
     const city1 = data.features[Math.floor(Math.random() * data.features.length)];
     let city2;
+    // let city3
+
     do {
       city2 = data.features[Math.floor(Math.random() * data.features.length)];
+      // city3 = data.features[Math.floor(Math.random() * data.features.length)];
     } while (city1 === city2); // Ensure cities are different
+
     pairs.push([city1, city2]);
   }
   return pairs;
@@ -22,7 +35,6 @@ function spinGlobe() {
   const width = 620
   const height = 620
   const rScale = d3.scaleSqrt()
-
   const peoplePerPixel = 40000
 
   // Configuration for the spinning effect
@@ -170,7 +182,7 @@ function spinGlobe() {
   
   // Generate a random city-pairs
   const pairs = getRandomCityPairs(2);
-  // generate circle for the city pair[1] and set the city redius/circle to 0 before animation(white circle). 
+  // generate circle for the city pair[1] and set the city redius/circle to animation intial radius value 0. 
   g.selectAll("path.cityAnim")
   .data(pairs.map((pair)=>pair[1]))
   .enter().append("path")
@@ -183,7 +195,9 @@ function spinGlobe() {
   let videoList: any = [];
   let startVideo = true;
   
-  // Draw lines connecting city pairs
+  // define city-connecton lines styles
+  // create a function and active it inside the animatOn()
+
   pairs.forEach(function (pair) {
     const id = `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`;
     svg.append("path")
@@ -197,19 +211,24 @@ function spinGlobe() {
       .style("stroke", "white")
       .style("fill", "none")
       .style("stroke-width", 0.5)
-      // TODO: test stoping the video play.     
+      // TODO: temp stopping the video play.     
       // videoList.push(appendVideo(id));
   });
   
-  // start spinning!
-  animationOn()
+  // all animation started!
+  spinning_globe_connecting_cities_animating()
 
   // define the animation actions of spinning globe, city circle and connecting-cities line
-  function animationOn() {
+  function spinning_globe_connecting_cities_animating() {
     let animationStatus = 'running';
     let startTime: number | null = Date.now();
-
+    const timer = d3.timer(animate)
+    
     function animate(elapsed: number) {
+      if (elapsed > 20000) {
+        timer.stop()
+      }
+
       if (!startTime) {
         startTime = time;
       }
@@ -237,72 +256,64 @@ function spinGlobe() {
         // remove the animated circle and city connection-line at the end of animation cycle
         svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
         svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
-        
-        // console.log("video list:", videoList)
-        // TODO: test to stop the playing
-        // if(videoList[0]) {
-        //   removeCurrentVideo(videoList[0].id)
-        // }
+        // TODO: need to restart to projecting the city-conneciton line. 
+        // need to pull in the next pairs of coordinates
       }
+
+      svg.selectAll(".city-line") 
+      .attr("d", function (d: any) {
+        const startCoordinates = d.coordinates[0];
+        const endCoordinates = d.coordinates[1];
+        
+        return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
       
-      svg.selectAll(".city-line") // city-connection line
-        .attr("d", function (d: any) {
-          // Interpolate between the starting and ending coordinates
-          const startCoordinates = d.coordinates[0];
-          const endCoordinates = d.coordinates[1];
-          if (animationStatus == 'stop') {
-            // Play all the video 
-            if(startVideo) { 
-              videoList.map((each: any)=>{
-                each.video.play()
-                .then(() => {
-                  console.log("Video is playing");
-                })
-                .catch((error: any) => {
-                  console.error("Video playback error:", error);
-                });
+        if (animationStatus == 'stop') {
+          // Play all the video (currently video not appended after svg)
+          if(startVideo) { 
+            videoList.map((each: any)=>{
+              each.video.play()
+              .then(() => {
+                console.log("Video is playing");
               })
+              .catch((error: any) => {
+                console.error("Video playback error:", error);
+              });
+            })
 
-              startVideo = false;
-            }
-           
-           const cityAnimCircle = svg.selectAll("path.cityAnim")
-           let videoShouldVisible: any = []; // Remove video if opposite of the globe 
-           // Loop through each circle to check if the circle is opposite of the globe 
-           // We can decide if the circle is opposite of the globe by checking path attribute [d]
-            cityAnimCircle.each(function (this: HTMLElement, dChild: any) {
-              const attributes = this.attributes;
-              // Check the circle is opposite of the globe by the d attribute
-              // d attribute will not exist with the path while opposite 
-              for (let i = 0; i < attributes.length; i++) {
-                const attributeName = attributes[i].name;
-                if(attributeName === 'd') { 
-                  const id = `id-${dChild.geometry.coordinates[0]}${dChild.geometry.coordinates[1]}`;
-                  videoShouldVisible.push({id, coordinates:dChild.geometry.coordinates});
-                } 
-              }
-            });
-            // filter the visible video list
-            const videos = videoList.filter((e: any)=>videoShouldVisible.some((visible: any)=>visible.id == e.id))
-            // filter the video that should be hide
-            const videosShouldHide =  videoList.filter((e: any)=> !videoShouldVisible.some((visible: any)=>visible.id == e.id))
-            videos.map((video: any, i: number)=>{
-              const [x, y] = projection(videoShouldVisible[i].coordinates)!;
-              video.foreignObject.attr("x", x-50).attr("y", y-50);
-            })
-            videosShouldHide.map((video: any, i: number)=>{
-              video.foreignObject.attr("y", -500); // -500 means removed from the viewport
-            })
-           
+            startVideo = false;
           }
-          return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
-        })
-     requestAnimationFrame(animate);
+          
+          const cityAnimCircle = svg.selectAll("path.cityAnim")
+          let videoShouldVisible: any = []; // Remove video if opposite of the globe 
+          // Loop through each circle to check if the circle is opposite of the globe 
+          // We can decide if the circle is opposite of the globe by checking path attribute [d]
+          cityAnimCircle.each(function (this: HTMLElement, dChild: any) {
+            const attributes = this.attributes;
+            // Check the circle is opposite of the globe by the d attribute
+            // d attribute will not exist with the path while opposite 
+            for (let i = 0; i < attributes.length; i++) {
+              const attributeName = attributes[i].name;
+              if(attributeName === 'd') { 
+                const id = `id-${dChild.geometry.coordinates[0]}${dChild.geometry.coordinates[1]}`;
+                videoShouldVisible.push({id, coordinates:dChild.geometry.coordinates});
+              } 
+            }
+          });
+          // filter the visible video list
+          const videos = videoList.filter((e: any)=>videoShouldVisible.some((visible: any)=>visible.id == e.id))
+          // filter the video that should be hide
+          const videosShouldHide =  videoList.filter((e: any)=> !videoShouldVisible.some((visible: any)=>visible.id == e.id))
+          videos.map((video: any, i: number)=>{
+            const [x, y] = projection(videoShouldVisible[i].coordinates)!;
+            video.foreignObject.attr("x", x-50).attr("y", y-50);
+          })
+          videosShouldHide.map((video: any, i: number)=>{
+            video.foreignObject.attr("y", -500); // -500 means removed from the viewport
+          })
+        }
+      })
     }
-
-    requestAnimationFrame(animate);
   }
-
   // // hackish approach to get bl.ocks.org to display individual height
   // d3.select(self.frameElement).style("height", height + "px")
 }
