@@ -92,6 +92,7 @@ function spinGlobe() {
   
   // Generate a random city-pairs
   const pairs = getRandomCityPairs(2);
+
   // generate circle for the city pair[1] and set the city redius/circle to animation intial radius value 0. 
   g.selectAll("path.cityAnim")
   .data(pairs.map((pair)=>pair[1]))
@@ -102,9 +103,7 @@ function spinGlobe() {
   .attr("stroke", "white")
   .attr("fill-opacity", 0.3)
  
-  // define city-connecton lines styles
-  // create a function and active it inside the animatOn()
-
+  // bind data(paired cities coordinates) to the svg path element, add city-line class styles
   pairs.forEach(function (pair) {
     const id = `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`;
     svg.append("path")
@@ -127,6 +126,8 @@ function spinGlobe() {
   function spinning_globe_connecting_cities_animating() {
     let animationStatus = 'running';
     let startTime: number | null = Date.now();
+    //TODO: 
+    //need to pass in the paired cities into animate one pair a time after each animation cycle. 
     const timer = d3.timer(animate)
     
     function animate(elapsed: number) {
@@ -156,19 +157,18 @@ function spinGlobe() {
       
       // animate white circle radius around destination city, animated from 0 to redius-value. 
       if( radius < 50) {
-        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius)); 
+        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius));
       } else {
         // remove the animated circle and city connection-line at the end of animation cycle
         svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
         svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
-        // TODO: need to restart to projecting the city-conneciton line. 
-        // need to pull in the next pairs of coordinates
       }
-
-      svg.selectAll(".city-line") 
+      svg.selectAll(".city-line")
       .attr("d", function (d: any) {
-        const startCoordinates = d.coordinates[0];
+        const startCoordinates = d.coordinates[0];    // all the startCoordinates binded to the elements
         const endCoordinates = d.coordinates[1];
+        // TODO: 
+        // try one coordinate a time. 
         return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
       })
     }
