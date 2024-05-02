@@ -80,95 +80,6 @@ function spinGlobe() {
     return d.properties ? rScale(d.properties.population) : 1
   })
 
-  let currentVideo: HTMLVideoElement | null = null; // Variable to store the current video element
-
-  function handleCityClick(city: any, event: any) {
-    // Remove the current video (if any)
-    if (currentVideo) {
-      currentVideo.pause();
-      currentVideo.parentElement?.remove();
-    }
-
-    // Get the click coordinates relative to the SVG
-    const [clickX, clickY] = d3.pointer(svg.node());
-    // Define the position where you want to place the video inside the SVG
-    const videoX = clickX - 50; // Adjust the X-coordinate as needed
-    const videoY = clickY - 50; // Adjust the Y-coordinate as needed
-
-    // Create a new foreignObject for the video
-    const foreignObject = svg
-      .append("foreignObject")
-      .attr("x", videoX) // Adjust the X-coordinate as needed
-      .attr("y", videoY) // Adjust the Y-coordinate as needed
-      .attr("width", 100)
-      .attr("height", 100);
-
-    // Create the video element using native JavaScript
-    const video = document.createElement("video");
-    video.id = "my-vid";
-    video.width = 100;
-    video.height = 100;
-    video.style.cssText = "object-fit: cover; border-radius: 50px";
-    video.muted = true;
-    video.src = "../../square-sample.mp4"; // Adjust the path as needed
-
-    // Append the video to the foreignObject
-    foreignObject.node()!.appendChild(video);
-
-    // Play the video and set it as the current video
-    video.play()
-      .then(() => {
-        console.log("Video is playing");
-        currentVideo = video;
-      })
-      .catch((error) => {
-        console.error("Video playback error:", error);
-      });
-  }
-  // TODO: test removing current started video after city-connection animation 
-  function removeCurrentVideo(id: any) {
-    const currentForeignObj = document.getElementById(id);
-    currentForeignObj!.remove()
-  }
-
-  function appendVideo(id: any) {
-    // Remove the current video (if any)
-    if (currentVideo) {
-      currentVideo.pause();
-      currentVideo.parentElement?.remove();
-    }
-
-    // Create a new foreignObject for the video
-    const foreignObject = svg
-      .append("foreignObject")
-      .attr("y", -500) // Adjust the Y-coordinate as needed
-      .attr("width", 100)
-      .attr("height", 100);
-
-    // Create the video element using native JavaScript
-    const video = document.createElement("video");
-    video.id = id;
-    video.width = 100;
-    video.height = 100;
-    video.style.cssText = "object-fit: cover; border-radius: 50px";
-    video.muted = true;
-    video.src = "../../square-sample.mp4"; // Adjust the path as needed
-
-    // Append the video to the foreignObject
-    foreignObject.node()!.appendChild(video);
-
-    // // Play the video and set it as the current video
-    // video.play()
-    //   .then(() => {
-    //     console.log("Video is playing");
-    //     currentVideo = video;
-    //   })
-    //   .catch((error) => {
-    //     console.error("Video playback error:", error);
-    //   });
-    return {foreignObject, video, id}
-  }
-  
   // set cities svg path's d attribute
   // Inside your click event handler, call handleCityClick and pass the event object
   g.selectAll("path.cities").data(data.features)
@@ -178,7 +89,6 @@ function spinGlobe() {
     .attr("d", (feature: any)=> path(feature))    
     .attr("fill", "#fa759e")
     .attr("fill-opacity", 0.3)
-    .on("click", (city: any, event: any) => handleCityClick(city, event)); // Attach click event handler
   
   // Generate a random city-pairs
   const pairs = getRandomCityPairs(2);
@@ -192,9 +102,6 @@ function spinGlobe() {
   .attr("stroke", "white")
   .attr("fill-opacity", 0.3)
  
-  let videoList: any = [];
-  let startVideo = true;
-  
   // define city-connecton lines styles
   // create a function and active it inside the animatOn()
 
@@ -211,8 +118,6 @@ function spinGlobe() {
       .style("stroke", "white")
       .style("fill", "none")
       .style("stroke-width", 0.5)
-      // TODO: temp stopping the video play.     
-      // videoList.push(appendVideo(id));
   });
   
   // all animation started!
@@ -264,53 +169,7 @@ function spinGlobe() {
       .attr("d", function (d: any) {
         const startCoordinates = d.coordinates[0];
         const endCoordinates = d.coordinates[1];
-        
         return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
-      
-        if (animationStatus == 'stop') {
-          // Play all the video (currently video not appended after svg)
-          if(startVideo) { 
-            videoList.map((each: any)=>{
-              each.video.play()
-              .then(() => {
-                console.log("Video is playing");
-              })
-              .catch((error: any) => {
-                console.error("Video playback error:", error);
-              });
-            })
-
-            startVideo = false;
-          }
-          
-          const cityAnimCircle = svg.selectAll("path.cityAnim")
-          let videoShouldVisible: any = []; // Remove video if opposite of the globe 
-          // Loop through each circle to check if the circle is opposite of the globe 
-          // We can decide if the circle is opposite of the globe by checking path attribute [d]
-          cityAnimCircle.each(function (this: HTMLElement, dChild: any) {
-            const attributes = this.attributes;
-            // Check the circle is opposite of the globe by the d attribute
-            // d attribute will not exist with the path while opposite 
-            for (let i = 0; i < attributes.length; i++) {
-              const attributeName = attributes[i].name;
-              if(attributeName === 'd') { 
-                const id = `id-${dChild.geometry.coordinates[0]}${dChild.geometry.coordinates[1]}`;
-                videoShouldVisible.push({id, coordinates:dChild.geometry.coordinates});
-              } 
-            }
-          });
-          // filter the visible video list
-          const videos = videoList.filter((e: any)=>videoShouldVisible.some((visible: any)=>visible.id == e.id))
-          // filter the video that should be hide
-          const videosShouldHide =  videoList.filter((e: any)=> !videoShouldVisible.some((visible: any)=>visible.id == e.id))
-          videos.map((video: any, i: number)=>{
-            const [x, y] = projection(videoShouldVisible[i].coordinates)!;
-            video.foreignObject.attr("x", x-50).attr("y", y-50);
-          })
-          videosShouldHide.map((video: any, i: number)=>{
-            video.foreignObject.attr("y", -500); // -500 means removed from the viewport
-          })
-        }
       })
     }
   }
