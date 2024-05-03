@@ -4,27 +4,19 @@ import data from "./geo.json"
 import { useEffect } from "react"
 import * as d3 from "d3"
 // Function to generate random pairs of cities
-
-// TODO; add the 3rd city. 
-
 function getRandomCityPairs(count: number) {
   const pairs = [];
-  
   // assign index object to each city properties
   data.features.forEach((feature, i) => {
     Object.assign(feature.properties, { i })
   })
-
   for (let i = 0; i < count; i++) {
     const city1 = data.features[Math.floor(Math.random() * data.features.length)];
-    let city2;
-    // let city3
-
+    let city2, city3
     do {
       city2 = data.features[Math.floor(Math.random() * data.features.length)];
       // city3 = data.features[Math.floor(Math.random() * data.features.length)];
     } while (city1 === city2); // Ensure cities are different
-
     pairs.push([city1, city2]);
   }
   return pairs;
@@ -81,71 +73,84 @@ function spinGlobe() {
   })
 
   // set cities svg path's d attribute
-  // Inside your click event handler, call handleCityClick and pass the event object
   g.selectAll("path.cities").data(data.features)
     .enter().append("path")
     .attr("class", "cities")
-    // d3.geoPath() take in geoOrthographic projection, return another function to generate d attribute
     .attr("d", (feature: any)=> path(feature))    
     .attr("fill", "#fa759e")
     .attr("fill-opacity", 0.3)
   
   // Generate a random city-pairs
   const pairs = getRandomCityPairs(2);
+  
+  // animations started!
+  spinning_globe_connecting_cities_animating()
 
-  // generate circle for the city pair[1] and set the city redius/circle to animation intial radius value 0. 
-  g.selectAll("path.cityAnim")
-  .data(pairs.map((pair)=>pair[1]))
-  .enter().append("path")
-  .attr("class", "cityAnim")
-  .attr("d", pathAnim.pointRadius(0))
-  .attr("fill", "#fa759e")
-  .attr("stroke", "white")
-  .attr("fill-opacity", 0.3)
- 
-  // bind data(paired cities coordinates) to the svg path element, add city-line class styles
-  pairs.forEach(function (pair) {
-    const id = `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`;
-    svg.append("path")
+  function spinning_globe_connecting_cities_animating() {
+    let startTime: number | null = Date.now();
+    
+    // TODO: 
+    // let cityPairs: any[] = []
+    // let index = 0;
+    // function animateNextCityPair() {
+      //   if (index < cityPairs.length) {
+        //     let currentPair = cityPairs[index]; 
+        //     animateCityPair(currentPair); 
+        //     index++;
+        //   }
+        // }
+        // function animateCityPair(pair: any) {
+          //   return 
+          // }
+          
+    // generate circle for the city pair[1] and set the city redius/circle to animation intial radius value 0. 
+    let pair = pairs[0] // nested paris array
+    g.selectAll("path.cityAnim")
+      .data([pair[1]])
+      .enter().append("path")
+      .attr("class", "cityAnim")
+      .attr("d", pathAnim.pointRadius(0))
+      .attr("fill", "#fa759e")
+      .attr("stroke", "white")
+      .attr("fill-opacity", 0.3)
+
+    pairs.forEach(function (pair) {
+      svg.append("path")
+        .attr("class", "city-line")
+        .style("stroke", "white")
+        .style("fill", "none")
+        .style("stroke-width", 0.5)
+    });
+     
+    const timer = d3.timer(animate)
+
+    function animate(elapsed: number) {
+      svg.selectAll(".city-line")
       .datum({
         type: "LineString",
         coordinates: [pair[0].geometry.coordinates, pair[1].geometry.coordinates],
-        id,
+        id: `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`,
         data: pair,
       })
-      .attr("class", "city-line")
-      .style("stroke", "white")
-      .style("fill", "none")
-      .style("stroke-width", 0.5)
-  });
-  
-  // all animation started!
-  spinning_globe_connecting_cities_animating()
+      .attr("d", function (d: any) {
+        const startCoordinates = d.coordinates[0];
+        const endCoordinates = d.coordinates[1];
+        return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates]});
+      })
 
-  // define the animation actions of spinning globe, city circle and connecting-cities line
-  function spinning_globe_connecting_cities_animating() {
-    let animationStatus = 'running';
-    let startTime: number | null = Date.now();
-    //TODO: 
-    //need to pass in the paired cities into animate one pair a time after each animation cycle. 
-    const timer = d3.timer(animate)
-    
-    function animate(elapsed: number) {
-      if (elapsed > 20000) {
+      if (elapsed > 30000) {
         timer.stop()
       }
-
       if (!startTime) {
         startTime = time;
       }
+
       const duration = 5000;
       const t = Math.min(1, elapsed / duration); // Calculate the time factor between 0 and 1
 
       // get current time
       const dt = Date.now() - startTime;
-      if (dt > duration) {
-        animationStatus = 'stop';
-      }
+
       // get the new position from the modified projection function
       projection.rotate([rotate[0] + velocity[0] * dt, rotate[1] + velocity[1] * dt]);
 
@@ -163,18 +168,8 @@ function spinGlobe() {
         svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
         svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
       }
-      svg.selectAll(".city-line")
-      .attr("d", function (d: any) {
-        const startCoordinates = d.coordinates[0];    // all the startCoordinates binded to the elements
-        const endCoordinates = d.coordinates[1];
-        // TODO: 
-        // try one coordinate a time. 
-        return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates] });
-      })
     }
   }
-  // // hackish approach to get bl.ocks.org to display individual height
-  // d3.select(self.frameElement).style("height", height + "px")
 }
 
 export default function SpinningGlobe() {
