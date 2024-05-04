@@ -3,22 +3,25 @@ import Script from "next/script"
 import data from "./geo.json"
 import { useEffect } from "react"
 import * as d3 from "d3"
-// Function to generate random pairs of cities
+
 function getRandomCityPairs(count: number) {
   const pairs = [];
   // assign index object to each city properties
   data.features.forEach((feature, i) => {
     Object.assign(feature.properties, { i })
   })
+  let cityPairStart = data.features[Math.floor(Math.random() * data.features.length)];
+  let cityPairEnd
+  
   for (let i = 0; i < count; i++) {
-    const city1 = data.features[Math.floor(Math.random() * data.features.length)];
-    let city2, city3
     do {
-      city2 = data.features[Math.floor(Math.random() * data.features.length)];
-      // city3 = data.features[Math.floor(Math.random() * data.features.length)];
-    } while (city1 === city2); // Ensure cities are different
-    pairs.push([city1, city2]);
+      cityPairEnd = data.features[Math.floor(Math.random() * data.features.length)];
+    } while (cityPairStart === cityPairEnd); // no repeat
+    pairs.push([cityPairStart, cityPairEnd]);
+    cityPairStart = cityPairEnd;
+    cityPairEnd = null; 
   }
+
   return pairs;
 }
 
@@ -80,32 +83,28 @@ function spinGlobe() {
     .attr("fill", "#fa759e")
     .attr("fill-opacity", 0.3)
   
-  // Generate a random city-pairs
-  const pairs = getRandomCityPairs(2);
+  // Generate a random pairs of cities
+  const pairs = getRandomCityPairs(5);
   
   // animations started!
-  spinning_globe_connecting_cities_animating()
+  spinning_globe_connecting_cities_animating(pairs)
 
-  function spinning_globe_connecting_cities_animating() {
+  function spinning_globe_connecting_cities_animating(pairs: any) {
     let startTime: number | null = Date.now();
     
-    // TODO: 
-    // let cityPairs: any[] = []
-    // let index = 0;
-    // function animateNextCityPair() {
-      //   if (index < cityPairs.length) {
-        //     let currentPair = cityPairs[index]; 
-        //     animateCityPair(currentPair); 
-        //     index++;
-        //   }
-        // }
-        // function animateCityPair(pair: any) {
-          //   return 
-          // }
-          
-    // generate circle for the city pair[1] and set the city redius/circle to animation intial radius value 0. 
-    let pair = pairs[0] // nested paris array
-    g.selectAll("path.cityAnim")
+    let index = 0;
+    function animateNextCityPair() {
+        if (index < pairs.length) {
+            let currentPair = pairs[index]; 
+            animateCityPair(currentPair); 
+            index++;
+            console.log("city pairs:", index, currentPair)
+          }
+        }
+
+    function animateCityPair(pair: any) {
+      // define cityAnim style base style with binding one city data
+      g.selectAll("path.cityAnim")
       .data([pair[1]])
       .enter().append("path")
       .attr("class", "cityAnim")
@@ -113,62 +112,68 @@ function spinGlobe() {
       .attr("fill", "#fa759e")
       .attr("stroke", "white")
       .attr("fill-opacity", 0.3)
-
-    pairs.forEach(function (pair) {
+    
+      // define city-line styles without binding city data
       svg.append("path")
         .attr("class", "city-line")
         .style("stroke", "white")
         .style("fill", "none")
         .style("stroke-width", 0.5)
-    });
-     
-    const timer = d3.timer(animate)
+    
+      const timer = d3.timer(animate)
 
-    function animate(elapsed: number) {
-      svg.selectAll(".city-line")
-      .datum({
-        type: "LineString",
-        coordinates: [pair[0].geometry.coordinates, pair[1].geometry.coordinates],
-        id: `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`,
-        data: pair,
-      })
-      .attr("d", function (d: any) {
-        const startCoordinates = d.coordinates[0];
-        const endCoordinates = d.coordinates[1];
-        return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates]});
-      })
+      function animate(elapsed: number) {
+        // console.log('animate functions elapsed:', elapsed)
+        // bind city data and projecting city-line
+        svg.selectAll(".city-line")
+        .datum({
+          type: "LineString",
+          coordinates: [pair[0].geometry.coordinates, pair[1].geometry.coordinates],
+          id: `id-${pair[1].geometry.coordinates[0]}${pair[1].geometry.coordinates[1]}`,
+          data: pair,
+        })
+        .attr("d", function (d: any) {
+          const startCoordinates = d.coordinates[0];
+          const endCoordinates = d.coordinates[1];
+          return pathConnection({ type: "LineString", coordinates: [startCoordinates, endCoordinates]});
+        })
 
-      if (elapsed > 30000) {
-        timer.stop()
+        // if (elapsed > 30000) {
+        //   timer.stop()
+        // }
+        if (!startTime) {
+          startTime = time;
+        }
+
+        const duration = 5000;
+        const t = Math.min(1, elapsed / duration); // Calculate the time factor between 0 and 1
+
+        // get current time
+        const dt = Date.now() - startTime;
+
+        // get the new position from the modified projection function
+        projection.rotate([rotate[0] + velocity[0] * dt, rotate[1] + velocity[1] * dt]);
+
+        const diff = elapsed / duration;
+        // radius(white circle) become animiated(expanding) when time elapsed
+        const radius = Math.max(Math.min((diff * 100) - 100, 50), 0);
+        //set all cities svg path d 
+        svg.selectAll("path.cities").attr("d", path); 
+        
+        // animate white circle radius around destination city, animated from 0 to redius-value. 
+        if( radius < 50) {
+          svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius));
+        } else {
+          // remove the animated circle and city connection-line at the end of animation cycle
+          svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
+          // no need force city-line to fade out. 
+          // svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(1000).style("stroke", null)
+        }
       }
-      if (!startTime) {
-        startTime = time;
-      }
-
-      const duration = 5000;
-      const t = Math.min(1, elapsed / duration); // Calculate the time factor between 0 and 1
-
-      // get current time
-      const dt = Date.now() - startTime;
-
-      // get the new position from the modified projection function
-      projection.rotate([rotate[0] + velocity[0] * dt, rotate[1] + velocity[1] * dt]);
-
-      const diff = elapsed / duration;
-      // radius(white circle) become animiated(expanding) when time elapsed
-      const radius = Math.max(Math.min((diff * 100) - 100, 50), 0);
-      //set all cities svg path d 
-      svg.selectAll("path.cities").attr("d", path); 
-      
-      // animate white circle radius around destination city, animated from 0 to redius-value. 
-      if( radius < 50) {
-        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(radius));
-      } else {
-        // remove the animated circle and city connection-line at the end of animation cycle
-        svg.selectAll("path.cityAnim").attr("d", pathAnim.pointRadius(0));
-        svg.selectAll(".city-line").transition().ease(d3.easeLinear).duration(2000).style("stroke", null)
-      }
+      setTimeout(animateNextCityPair, 7000);
     }
+    // trigger the first city-pair
+    animateNextCityPair();
   }
 }
 
