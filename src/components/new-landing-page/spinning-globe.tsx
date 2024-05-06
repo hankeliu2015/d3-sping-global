@@ -3,7 +3,7 @@ import Script from "next/script"
 import data from "./geo.json"
 import { useEffect } from "react"
 import * as d3 from "d3"
-
+// test gpg verified commit 
 function getRandomCityPairs(count: number) {
   const pairs = [];
   // assign index object to each city properties
