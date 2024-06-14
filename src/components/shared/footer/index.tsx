@@ -1,0 +1,38 @@
+import React from 'react'
+import BuiltWith from './built-with'
+import { BuyMeACoffeeIcon, EmailIcon, GithubIcon, LinkedInIcon, TwitterIcon } from './social-icons'
+import SocialLinks from './social-links'
+
+const socialLinkData = [
+  {
+    href: 'https://www.linkedin.com/company/more-human-internet/',
+    ariaLabel: 'LinkedIn',
+    icon: <LinkedInIcon />,
+  },
+  {
+    href: 'https://www.buymeacoffee.com/morehumaninter',
+    ariaLabel: 'Buy Me A Coffee',
+    icon: <BuyMeACoffeeIcon />,
+  },
+  {
+    href: 'mailto:info@morehumaninternet.org',
+    ariaLabel: 'Email',
+    icon: <EmailIcon />,
+  },
+]
+
+const Footer = (): JSX.Element => {
+  return (
+    <footer className="v2">
+      <BuiltWith />
+      <div className="footer-banner">
+        <div className="footer-links__container">
+          <SocialLinks links={socialLinkData} />
+        </div>
+        <span className="copyright">© More Human Internet Foundation 2020—2023, All rights reserved</span>
+      </div>
+    </footer>
+  )
+}
+
+export default Footer
