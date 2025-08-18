@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "config:loglevel": "echo \"Loglevel: $npm_config_loglevel\"",
+    "config:editor": "echo \"Editor: $npm_config_editor\"",
+    "config:useragent": "echo \"User Agent: $npm_config_user_agent\""
+
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
