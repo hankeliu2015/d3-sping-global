@@ -2,7 +2,6 @@
   "name": "morehumaninternet-frontend",
   "version": "0.1.0",
   "private": true,
-
   "config": {
     "my-var": "Some value",
     "port": 1234
@@ -14,10 +13,10 @@
     "lint": "next lint",
     "config:loglevel": "echo \"Loglevel: $npm_config_loglevel\"",
     "config:editor": "echo \"Editor: $npm_config_editor\"",
-    "config:useragent": "echo \"User Agent: $npm_config_user_agent\"", 
+    "config:useragent": "echo \"User Agent: $npm_config_user_agent\"",
     "package:main": "echo \"Main: $npm_package_main\"",
     "package:name": "echo \"Name: $npm_package_name\"",
-    "package:version": "echo \"Version: $npm_package_version\"", 
+    "package:version": "echo \"Version: $npm_package_version\"",
     "packageconfig:port": "echo \"Port: $npm_package_config_port\"",
     "packageconfig:myvar": "echo \"My var: $npm_package_config_my_var\""
   },
@@ -32,7 +31,6 @@
     "classnames": "^2.3.2",
     "country-flag-icons": "^1.5.7",
     "d3": "^7.8.5",
-    "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "i18n-iso-countries": "^7.7.0",
     "lodash": "^4.17.21",
@@ -48,9 +46,14 @@
     "ua-parser-js": "^1.0.35"
   },
   "devDependencies": {
+    "@eslint/js": "^9.33.0",
     "@types/classnames": "^2.3.1",
     "@types/d3": "^7.4.3",
     "@types/lodash": "^4.14.195",
-    "@types/react-share": "^4.0.0"
+    "@types/react-share": "^4.0.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.3.0",
+    "typescript-eslint": "^8.40.0"
   }
 }
