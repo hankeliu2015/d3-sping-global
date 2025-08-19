@@ -2,6 +2,11 @@
   "name": "morehumaninternet-frontend",
   "version": "0.1.0",
   "private": true,
+
+  "config": {
+    "my-var": "Some value",
+    "port": 1234
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,8 +14,12 @@
     "lint": "next lint",
     "config:loglevel": "echo \"Loglevel: $npm_config_loglevel\"",
     "config:editor": "echo \"Editor: $npm_config_editor\"",
-    "config:useragent": "echo \"User Agent: $npm_config_user_agent\""
-
+    "config:useragent": "echo \"User Agent: $npm_config_user_agent\"", 
+    "package:main": "echo \"Main: $npm_package_main\"",
+    "package:name": "echo \"Name: $npm_package_name\"",
+    "package:version": "echo \"Version: $npm_package_version\"", 
+    "packageconfig:port": "echo \"Port: $npm_package_config_port\"",
+    "packageconfig:myvar": "echo \"My var: $npm_package_config_my_var\""
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
