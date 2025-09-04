@@ -8,7 +8,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Hello Baeldung action step
-        uses: ./ # Uses an Docker container action in the root directory
+        uses: ./ # Uses an Docker container action in the root directory 
+        # test a change, ignore this line. 
         id: hello
         with:
           who-to-greet: 'Baeldung'
